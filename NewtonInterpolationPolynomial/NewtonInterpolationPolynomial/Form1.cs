@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OxyPlot;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,8 +21,8 @@ namespace NewtonInterpolationPolynomial
         {
             InitializeComponent();
             functions.Add("sin(x) [rad]", (x) => Math.Sin(x));
-            functions.Add("x^2 + 3x - 1", (x) => x * x + 3 * x - 1);
-            functions.Add("5x^4 - x^2 - 3x -1", (x) => 5 * x * x * x * x - x * x - 3 * x - 1);
+            functions.Add("-x^3 - 3x^2 + 4x + 12", (x) => -x * x *x - 3 * x * x + 4 * x + 12);
+            functions.Add("0.05(x+4)(x+2)(x+1)(x-1)(x-3) + 2", (x) => 0.05 *(x + 4) *(x + 2) *(x + 1) *(x - 1) * (x - 3) + 2);
             CBPolynomial.DataSource = new BindingSource(functions, null);
             CBPolynomial.DisplayMember = "Key";
             CBPolynomial.ValueMember = "Value";
@@ -146,6 +147,13 @@ namespace NewtonInterpolationPolynomial
             {
                 DGVPoints[2, i].Value = ((Func<double, double>)(CBPolynomial.SelectedValue)).DynamicInvoke(Convert.ToDouble(DGVPoints[1, i].Value));
             }
+        }
+
+        private void BDraw_Click(object sender, EventArgs e)
+        {
+            plotView1.Model = new PlotModel();
+            string title = ((KeyValuePair<string, Func<double, double>>)CBPolynomial.SelectedItem).Key;
+            plotView1.Model.Series.Add(new OxyPlot.Series.FunctionSeries((Func<double, double>)CBPolynomial.SelectedValue,-3,3, 0.1, title));
         }
     }
 }
