@@ -63,13 +63,21 @@
             this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.LPolynomial = new System.Windows.Forms.Label();
-            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.CBPolynomial = new System.Windows.Forms.ComboBox();
-            this.BDraw = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.plotView1 = new OxyPlot.WindowsForms.PlotView();
+            this.label8 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.NMIN = new System.Windows.Forms.NumericUpDown();
+            this.label9 = new System.Windows.Forms.Label();
+            this.NMAX = new System.Windows.Forms.NumericUpDown();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.BDraw = new System.Windows.Forms.Button();
+            this.LPolynomial = new System.Windows.Forms.Label();
+            this.CBPolynomial = new System.Windows.Forms.ComboBox();
+            this.BInterpolate = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -86,6 +94,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
+            this.tableLayoutPanel7.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NMIN)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NMAX)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             this.SuspendLayout();
@@ -112,7 +124,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 320F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.plotView1, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel7, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -224,6 +236,7 @@
             this.RBChebyshev.TabStop = true;
             this.RBChebyshev.Text = "(3) Use Chebyshev nodes";
             this.RBChebyshev.UseVisualStyleBackColor = true;
+            this.RBChebyshev.CheckedChanged += new System.EventHandler(this.RB_CheckedChanged);
             // 
             // RBEquidistant
             // 
@@ -235,10 +248,12 @@
             this.RBEquidistant.TabStop = true;
             this.RBEquidistant.Text = "(2) Use equidistant nodes";
             this.RBEquidistant.UseVisualStyleBackColor = true;
+            this.RBEquidistant.CheckedChanged += new System.EventHandler(this.RB_CheckedChanged);
             // 
             // RBManual
             // 
             this.RBManual.AutoSize = true;
+            this.RBManual.Checked = true;
             this.RBManual.Location = new System.Drawing.Point(6, 23);
             this.RBManual.Name = "RBManual";
             this.RBManual.Size = new System.Drawing.Size(135, 17);
@@ -246,6 +261,7 @@
             this.RBManual.TabStop = true;
             this.RBManual.Text = "(1) Add nodes manually";
             this.RBManual.UseVisualStyleBackColor = true;
+            this.RBManual.CheckedChanged += new System.EventHandler(this.RB_CheckedChanged);
             // 
             // tableLayoutPanel5
             // 
@@ -274,6 +290,7 @@
             this.GBEquidistant.Controls.Add(this.BAddNodeEquidistant);
             this.GBEquidistant.Controls.Add(this.numericUpDown1);
             this.GBEquidistant.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GBEquidistant.Enabled = false;
             this.GBEquidistant.Location = new System.Drawing.Point(3, 81);
             this.GBEquidistant.Name = "GBEquidistant";
             this.GBEquidistant.Size = new System.Drawing.Size(302, 72);
@@ -320,7 +337,7 @@
             // 
             // numericUpDown2
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(125, 19);
+            this.numericUpDown2.Location = new System.Drawing.Point(124, 19);
             this.numericUpDown2.Name = "numericUpDown2";
             this.numericUpDown2.Size = new System.Drawing.Size(65, 20);
             this.numericUpDown2.TabIndex = 7;
@@ -432,6 +449,7 @@
             this.GBChebyshev.Controls.Add(this.numericUpDown5);
             this.GBChebyshev.Controls.Add(this.label7);
             this.GBChebyshev.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GBChebyshev.Enabled = false;
             this.GBChebyshev.Location = new System.Drawing.Point(3, 159);
             this.GBChebyshev.Name = "GBChebyshev";
             this.GBChebyshev.Size = new System.Drawing.Size(302, 72);
@@ -463,7 +481,7 @@
             // 
             // numericUpDown4
             // 
-            this.numericUpDown4.Location = new System.Drawing.Point(123, 19);
+            this.numericUpDown4.Location = new System.Drawing.Point(122, 19);
             this.numericUpDown4.Name = "numericUpDown4";
             this.numericUpDown4.Size = new System.Drawing.Size(65, 20);
             this.numericUpDown4.TabIndex = 15;
@@ -525,13 +543,131 @@
             this.label7.TabIndex = 10;
             this.label7.Text = "x_0 =";
             // 
+            // tableLayoutPanel7
+            // 
+            this.tableLayoutPanel7.ColumnCount = 1;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.Controls.Add(this.plotView1, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.label8, 0, 2);
+            this.tableLayoutPanel7.Controls.Add(this.panel1, 0, 1);
+            this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(323, 3);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            this.tableLayoutPanel7.RowCount = 3;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(788, 538);
+            this.tableLayoutPanel7.TabIndex = 1;
+            // 
+            // plotView1
+            // 
+            this.plotView1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.plotView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.plotView1.Location = new System.Drawing.Point(3, 3);
+            this.plotView1.Name = "plotView1";
+            this.plotView1.PanCursor = System.Windows.Forms.Cursors.Hand;
+            this.plotView1.Size = new System.Drawing.Size(782, 474);
+            this.plotView1.TabIndex = 1;
+            this.plotView1.Text = "plotView1";
+            this.plotView1.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
+            this.plotView1.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
+            this.plotView1.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label8.Location = new System.Drawing.Point(3, 508);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(782, 30);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "max absolute error: ? on the interval <-3,3> with step: 0.1";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label10);
+            this.panel1.Controls.Add(this.NMIN);
+            this.panel1.Controls.Add(this.label9);
+            this.panel1.Controls.Add(this.NMAX);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 483);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(782, 22);
+            this.panel1.TabIndex = 3;
+            // 
+            // label10
+            // 
+            this.label10.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label10.Location = new System.Drawing.Point(675, 0);
+            this.label10.Name = "label10";
+            this.label10.Padding = new System.Windows.Forms.Padding(0, 0, 0, 4);
+            this.label10.Size = new System.Drawing.Size(42, 22);
+            this.label10.TabIndex = 21;
+            this.label10.Text = "x MAX:";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // NMIN
+            // 
+            this.NMIN.Dock = System.Windows.Forms.DockStyle.Left;
+            this.NMIN.Enabled = false;
+            this.NMIN.Location = new System.Drawing.Point(40, 0);
+            this.NMIN.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.NMIN.Name = "NMIN";
+            this.NMIN.Size = new System.Drawing.Size(65, 20);
+            this.NMIN.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.NMIN, "min = -100\r\nmax = 100\r\ninc = 0,01");
+            this.NMIN.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            -2147483648});
+            this.NMIN.ValueChanged += new System.EventHandler(this.NMIN_MAX_ValueChanged);
+            // 
+            // label9
+            // 
+            this.label9.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label9.Location = new System.Drawing.Point(0, 0);
+            this.label9.Name = "label9";
+            this.label9.Padding = new System.Windows.Forms.Padding(0, 0, 0, 4);
+            this.label9.Size = new System.Drawing.Size(40, 22);
+            this.label9.TabIndex = 18;
+            this.label9.Text = "x MIN:";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // NMAX
+            // 
+            this.NMAX.Dock = System.Windows.Forms.DockStyle.Right;
+            this.NMAX.Enabled = false;
+            this.NMAX.Location = new System.Drawing.Point(717, 0);
+            this.NMAX.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.NMAX.Name = "NMAX";
+            this.NMAX.Size = new System.Drawing.Size(65, 20);
+            this.NMAX.TabIndex = 17;
+            this.toolTip1.SetToolTip(this.NMAX, "min = -100\r\nmax = 100\r\ninc = 0,01");
+            this.NMAX.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.NMAX.ValueChanged += new System.EventHandler(this.NMIN_MAX_ValueChanged);
+            // 
             // tableLayoutPanel4
             // 
             this.tableLayoutPanel4.ColumnCount = 2;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 272F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 320F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Controls.Add(this.LPolynomial, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel6, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.BInterpolate, 0, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 553);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -540,42 +676,22 @@
             this.tableLayoutPanel4.Size = new System.Drawing.Size(1114, 36);
             this.tableLayoutPanel4.TabIndex = 1;
             // 
-            // LPolynomial
-            // 
-            this.LPolynomial.AutoSize = true;
-            this.LPolynomial.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.LPolynomial.Location = new System.Drawing.Point(3, 12);
-            this.LPolynomial.Margin = new System.Windows.Forms.Padding(3, 0, 0, 8);
-            this.LPolynomial.Name = "LPolynomial";
-            this.LPolynomial.Padding = new System.Windows.Forms.Padding(0, 0, 0, 3);
-            this.LPolynomial.Size = new System.Drawing.Size(269, 16);
-            this.LPolynomial.TabIndex = 2;
-            this.LPolynomial.Text = "f(x) = ";
-            this.LPolynomial.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // tableLayoutPanel6
             // 
-            this.tableLayoutPanel6.ColumnCount = 2;
+            this.tableLayoutPanel6.ColumnCount = 3;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65F));
-            this.tableLayoutPanel6.Controls.Add(this.CBPolynomial, 0, 0);
-            this.tableLayoutPanel6.Controls.Add(this.BDraw, 1, 0);
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanel6.Controls.Add(this.BDraw, 2, 0);
+            this.tableLayoutPanel6.Controls.Add(this.LPolynomial, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.CBPolynomial, 1, 0);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(275, 3);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(323, 3);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 1;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(836, 30);
-            this.tableLayoutPanel6.TabIndex = 3;
-            // 
-            // CBPolynomial
-            // 
-            this.CBPolynomial.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.CBPolynomial.FormattingEnabled = true;
-            this.CBPolynomial.Location = new System.Drawing.Point(3, 6);
-            this.CBPolynomial.Name = "CBPolynomial";
-            this.CBPolynomial.Size = new System.Drawing.Size(765, 21);
-            this.CBPolynomial.TabIndex = 2;
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(788, 30);
+            this.tableLayoutPanel6.TabIndex = 18;
             // 
             // BDraw
             // 
@@ -584,28 +700,50 @@
             this.BDraw.FlatAppearance.BorderColor = System.Drawing.Color.LightBlue;
             this.BDraw.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BDraw.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.BDraw.Location = new System.Drawing.Point(774, 6);
+            this.BDraw.Location = new System.Drawing.Point(731, 6);
             this.BDraw.Name = "BDraw";
-            this.BDraw.Size = new System.Drawing.Size(59, 21);
+            this.BDraw.Size = new System.Drawing.Size(54, 21);
             this.BDraw.TabIndex = 16;
             this.BDraw.Text = "Draw";
             this.toolTip1.SetToolTip(this.BDraw, "Draw f(x) and its interpolation");
             this.BDraw.UseVisualStyleBackColor = false;
             this.BDraw.Click += new System.EventHandler(this.BDraw_Click);
             // 
-            // plotView1
+            // LPolynomial
             // 
-            this.plotView1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.plotView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.plotView1.Location = new System.Drawing.Point(323, 3);
-            this.plotView1.Name = "plotView1";
-            this.plotView1.PanCursor = System.Windows.Forms.Cursors.Hand;
-            this.plotView1.Size = new System.Drawing.Size(788, 538);
-            this.plotView1.TabIndex = 1;
-            this.plotView1.Text = "plotView1";
-            this.plotView1.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
-            this.plotView1.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
-            this.plotView1.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
+            this.LPolynomial.AutoSize = true;
+            this.LPolynomial.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.LPolynomial.Location = new System.Drawing.Point(3, 6);
+            this.LPolynomial.Margin = new System.Windows.Forms.Padding(3, 0, 0, 8);
+            this.LPolynomial.Name = "LPolynomial";
+            this.LPolynomial.Padding = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.LPolynomial.Size = new System.Drawing.Size(37, 16);
+            this.LPolynomial.TabIndex = 2;
+            this.LPolynomial.Text = "f(x) = ";
+            this.LPolynomial.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // CBPolynomial
+            // 
+            this.CBPolynomial.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.CBPolynomial.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CBPolynomial.FormattingEnabled = true;
+            this.CBPolynomial.Location = new System.Drawing.Point(43, 6);
+            this.CBPolynomial.Name = "CBPolynomial";
+            this.CBPolynomial.Size = new System.Drawing.Size(682, 21);
+            this.CBPolynomial.TabIndex = 2;
+            // 
+            // BInterpolate
+            // 
+            this.BInterpolate.BackColor = System.Drawing.Color.Turquoise;
+            this.BInterpolate.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.BInterpolate.FlatAppearance.BorderColor = System.Drawing.Color.Turquoise;
+            this.BInterpolate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BInterpolate.Location = new System.Drawing.Point(3, 10);
+            this.BInterpolate.Name = "BInterpolate";
+            this.BInterpolate.Size = new System.Drawing.Size(314, 23);
+            this.BInterpolate.TabIndex = 19;
+            this.BInterpolate.Text = "Interpolate";
+            this.BInterpolate.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
@@ -636,9 +774,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
+            this.tableLayoutPanel7.ResumeLayout(false);
+            this.tableLayoutPanel7.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.NMIN)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NMAX)).EndInit();
             this.tableLayoutPanel4.ResumeLayout(false);
-            this.tableLayoutPanel4.PerformLayout();
             this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -649,8 +792,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.DataGridView DGVPoints;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
-        private System.Windows.Forms.Label LPolynomial;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton RBChebyshev;
         private System.Windows.Forms.RadioButton RBEquidistant;
@@ -682,10 +823,20 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn y_i;
         private System.Windows.Forms.DataGridViewButtonColumn Del;
         private System.Windows.Forms.DataGridViewButtonColumn Edit;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
-        private System.Windows.Forms.ComboBox CBPolynomial;
-        private System.Windows.Forms.Button BDraw;
         private OxyPlot.WindowsForms.PlotView plotView1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
+        private System.Windows.Forms.Button BDraw;
+        private System.Windows.Forms.Label LPolynomial;
+        private System.Windows.Forms.ComboBox CBPolynomial;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button BInterpolate;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.NumericUpDown NMAX;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.NumericUpDown NMIN;
+        private System.Windows.Forms.Label label9;
     }
 }
 

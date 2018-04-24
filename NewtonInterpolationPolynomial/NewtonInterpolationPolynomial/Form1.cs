@@ -1,4 +1,5 @@
 ﻿using OxyPlot;
+using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,13 +17,13 @@ namespace NewtonInterpolationPolynomial
         //differential sums
         Dictionary<int, double> difSums = new Dictionary<int, double>();
         Dictionary<string, Func<double, double>> functions = new Dictionary<string, Func<double, double>>();
-
+        OxyPlot.Series.LineSeries punktySerii;
         public Form1()
         {
             InitializeComponent();
             functions.Add("sin(x) [rad]", (x) => Math.Sin(x));
-            functions.Add("-x^3 - 3x^2 + 4x + 12", (x) => -x * x *x - 3 * x * x + 4 * x + 12);
-            functions.Add("0.05(x+4)(x+2)(x+1)(x-1)(x-3) + 2", (x) => 0.05 *(x + 4) *(x + 2) *(x + 1) *(x - 1) * (x - 3) + 2);
+            functions.Add("-x^3 - 3x^2 + 4x + 12", (x) => -x * x * x - 3 * x * x + 4 * x + 12);
+            functions.Add("(x+4)(x+2)(x+1)(x-1)(x-3) + 2", (x) => (x + 4) * (x + 2) * (x + 1) * (x - 1) * (x - 3) + 2);
             CBPolynomial.DataSource = new BindingSource(functions, null);
             CBPolynomial.DisplayMember = "Key";
             CBPolynomial.ValueMember = "Value";
@@ -67,7 +68,7 @@ namespace NewtonInterpolationPolynomial
             int j = -1;
 
             counter = Double.Parse(DGVPoints.Rows[i].Cells[2].Value.ToString());
-            if (i==0)
+            if (i == 0)
             {
                 sum = counter;
             }
@@ -75,13 +76,13 @@ namespace NewtonInterpolationPolynomial
             {
                 for (j = 0; j < difSums.Count; j++)
                 {
-                    if (j!=i)
+                    if (j != i)
                     {
                         denominator *= Double.Parse(DGVPoints.Rows[i].Cells[1].Value.ToString())
                             - Double.Parse(DGVPoints.Rows[j].Cells[1].Value.ToString());
                     }
                 }
-                sum = difSums[difSums.Count-1] + counter / denominator;
+                sum = difSums[difSums.Count - 1] + counter / denominator;
             }
             difSums.Add(difSums.Count, sum);
         }
@@ -132,7 +133,7 @@ namespace NewtonInterpolationPolynomial
                     {
                         DGVPoints[0, i].Value = i;
                     }
-                  //calculate diff sums from rowIndex
+                    //calculate diff sums from rowIndex
                 }
                 else if (e.ColumnIndex == 4) //edit
                 {
@@ -148,12 +149,85 @@ namespace NewtonInterpolationPolynomial
                 DGVPoints[2, i].Value = ((Func<double, double>)(CBPolynomial.SelectedValue)).DynamicInvoke(Convert.ToDouble(DGVPoints[1, i].Value));
             }
         }
-
         private void BDraw_Click(object sender, EventArgs e)
         {
             plotView1.Model = new PlotModel();
             string title = ((KeyValuePair<string, Func<double, double>>)CBPolynomial.SelectedItem).Key;
-            plotView1.Model.Series.Add(new OxyPlot.Series.FunctionSeries((Func<double, double>)CBPolynomial.SelectedValue,-3,3, 0.1, title));
+            plotView1.Model.Series.Add(new OxyPlot.Series.FunctionSeries((Func<double, double>)CBPolynomial.SelectedValue, -100, 100, 0.1, title));
+
+            var scatterSeries = new ScatterSeries() { MarkerType = MarkerType.Circle, MarkerStrokeThickness = 3 };
+            scatterSeries.Points.Add(new ScatterPoint(0, 0, 5, 1));
+
+            plotView1.Model.Series.Add(scatterSeries);
+            plotView1.Model.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = OxyPlot.Axes.AxisPosition.Left, ExtraGridlines = new double[] { 0 }, ExtraGridlineThickness = 1, ExtraGridlineColor = OxyColors.Black, });
+            plotView1.Model.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = OxyPlot.Axes.AxisPosition.Top, ExtraGridlines = new double[] { 0 }, ExtraGridlineThickness = 1, ExtraGridlineColor = OxyColors.Black, });
+
+            NMIN_MAX_ValueChanged(null, null);
+            NMIN.Enabled = true;
+            NMAX.Enabled = true;
+        }
+
+        private void NMIN_MAX_ValueChanged(object sender, EventArgs e)
+        {
+            int minimum;
+            int maximum;
+
+            int.TryParse(NMIN.Value.ToString(), out minimum);
+            int.TryParse(NMAX.Value.ToString(), out maximum);
+
+            if (minimum >= maximum)
+            {
+                minimum = maximum - 6;
+                NMIN.Value = minimum;
+            }
+            if (minimum != 0 && maximum != 0)
+            {
+                plotView1.Model.Axes[1].Minimum = minimum;
+                plotView1.Model.Axes[1].Maximum = maximum;
+
+                //set y
+                double max = Double.MinValue;
+                double min = Double.MaxValue;
+
+                double functValue = 0.0;
+                
+                for (double i = minimum; i <= maximum; i+=0.01)
+                {
+                    functValue = (double)((Func<double, double>)(CBPolynomial.SelectedValue)).DynamicInvoke(i);
+                    max = max > functValue ? max : functValue;
+                    min = min < functValue ? min : functValue;
+                }
+
+                plotView1.Model.Axes[0].Maximum = max;
+                plotView1.Model.Axes[0].Minimum = min;
+
+                plotView1.Model.Axes[0].Reset();
+                plotView1.Model.Axes[1].Reset();
+
+                plotView1.Model.InvalidatePlot(true);
+            }
+        }
+
+        private void RB_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RBManual.Checked == true)
+            {
+                GBManual.Enabled = true;
+                GBEquidistant.Enabled = false;
+                GBChebyshev.Enabled = false;
+            }
+            else if (RBEquidistant.Checked == true)
+            {
+                GBManual.Enabled = false;
+                GBEquidistant.Enabled = true;
+                GBChebyshev.Enabled = false;
+            }
+            else if (RBChebyshev.Checked == true)
+            {
+                GBManual.Enabled = false;
+                GBEquidistant.Enabled = false;
+                GBChebyshev.Enabled = true;
+            }
         }
     }
 }
