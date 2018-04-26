@@ -33,6 +33,11 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.DGVPoints = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.x_i = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.y_i = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Del = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Edit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.RBChebyshev = new System.Windows.Forms.RadioButton();
             this.RBEquidistant = new System.Windows.Forms.RadioButton();
@@ -72,11 +77,6 @@
             this.CBPolynomial = new System.Windows.Forms.ComboBox();
             this.BInterpolate = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.x_i = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.y_i = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Del = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Edit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -171,6 +171,49 @@
             this.DGVPoints.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVPoints_CellClick);
             this.DGVPoints.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DGVPoints_CellPainting);
             this.DGVPoints.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.DGVPoints_CellValidating);
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "i";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.ID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ID.Width = 50;
+            // 
+            // x_i
+            // 
+            this.x_i.HeaderText = "x_i";
+            this.x_i.Name = "x_i";
+            this.x_i.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.x_i.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.x_i.Width = 90;
+            // 
+            // y_i
+            // 
+            this.y_i.HeaderText = "y_i";
+            this.y_i.Name = "y_i";
+            this.y_i.ReadOnly = true;
+            this.y_i.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.y_i.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.y_i.Width = 90;
+            // 
+            // Del
+            // 
+            this.Del.HeaderText = "Delete";
+            this.Del.Name = "Del";
+            this.Del.ReadOnly = true;
+            this.Del.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Del.Text = "Delete";
+            this.Del.Width = 56;
+            // 
+            // Edit
+            // 
+            this.Edit.HeaderText = "Edit";
+            this.Edit.Name = "Edit";
+            this.Edit.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Edit.Visible = false;
+            this.Edit.Width = 56;
             // 
             // groupBox2
             // 
@@ -687,49 +730,6 @@
             this.BInterpolate.Text = "Interpolate";
             this.BInterpolate.UseVisualStyleBackColor = false;
             this.BInterpolate.Click += new System.EventHandler(this.BInterpolate_Click);
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "i";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.ID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ID.Width = 50;
-            // 
-            // x_i
-            // 
-            this.x_i.HeaderText = "x_i";
-            this.x_i.Name = "x_i";
-            this.x_i.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.x_i.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.x_i.Width = 90;
-            // 
-            // y_i
-            // 
-            this.y_i.HeaderText = "y_i";
-            this.y_i.Name = "y_i";
-            this.y_i.ReadOnly = true;
-            this.y_i.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.y_i.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.y_i.Width = 90;
-            // 
-            // Del
-            // 
-            this.Del.HeaderText = "Delete";
-            this.Del.Name = "Del";
-            this.Del.ReadOnly = true;
-            this.Del.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Del.Text = "Delete";
-            this.Del.Width = 56;
-            // 
-            // Edit
-            // 
-            this.Edit.HeaderText = "Edit";
-            this.Edit.Name = "Edit";
-            this.Edit.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Edit.Visible = false;
-            this.Edit.Width = 56;
             // 
             // Form1
             // 

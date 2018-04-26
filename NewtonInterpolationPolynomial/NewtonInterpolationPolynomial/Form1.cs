@@ -284,7 +284,7 @@ namespace NewtonInterpolationPolynomial
                     double var = 0;
                     double numerator = 0.0;
                     double denominator = 0.0;
-                    numerator = GenerateDifDiv(down + 1, up) + GenerateDifDiv(down, up - 1);
+                    numerator = GenerateDifDiv(down + 1, up) - GenerateDifDiv(down, up - 1);
                     denominator = DGVPointsDict[up].Key - DGVPointsDict[down].Key;
                     var = numerator / denominator;
                     if (down == 0)
