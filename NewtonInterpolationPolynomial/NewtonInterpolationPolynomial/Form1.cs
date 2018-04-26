@@ -15,7 +15,8 @@ namespace NewtonInterpolationPolynomial
     public partial class Form1 : Form
     {
         //differential sums
-        Dictionary<int, double> difSums = new Dictionary<int, double>();
+        Dictionary<int, KeyValuePair<double, double>> DGVPointsDict = new Dictionary<int, KeyValuePair<double, double>>();
+        List<double> difDiv = new List<double>();
         Dictionary<string, Func<double, double>> functions = new Dictionary<string, Func<double, double>>();
         OxyPlot.Series.LineSeries punktySerii;
         public Form1()
@@ -27,7 +28,57 @@ namespace NewtonInterpolationPolynomial
             CBPolynomial.DataSource = new BindingSource(functions, null);
             CBPolynomial.DisplayMember = "Key";
             CBPolynomial.ValueMember = "Value";
+            CBPolynomial_SelectedIndexChanged(null, null);
         }
+        // *** Menu ***
+        private void RB_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RBManual.Checked == true)
+            {
+                GBManual.Enabled = true;
+                GBEquidistant.Enabled = false;
+                GBChebyshev.Enabled = false;
+            }
+            else if (RBEquidistant.Checked == true)
+            {
+                GBManual.Enabled = false;
+                GBEquidistant.Enabled = true;
+                GBChebyshev.Enabled = false;
+            }
+            else if (RBChebyshev.Checked == true)
+            {
+                GBManual.Enabled = false;
+                GBEquidistant.Enabled = false;
+                GBChebyshev.Enabled = true;
+            }
+        }
+        private void BAddNode_Click(object sender, EventArgs e)
+        {
+            double x_i = Convert.ToDouble(N_x_i.Value);
+            bool can_or_not = true;
+            for (int i = 0; i < DGVPoints.RowCount; i++)
+            {
+                if (Convert.ToDouble(DGVPoints[1, i].Value) == x_i)
+                {
+                    can_or_not = false;
+                    break;
+                }
+            }
+            if (can_or_not == true)
+            {
+                double y_i = (double)((KeyValuePair<string, Func<double, double>>)CBPolynomial.SelectedItem).Value.DynamicInvoke(Convert.ToDouble(x_i));
+                this.DGVPoints.Rows.Add(DGVPoints.RowCount, x_i, y_i);
+                this.N_x_i.Value++;
+                this.DGVPointsDict.Add(DGVPoints.RowCount - 1, new KeyValuePair<double, double>(Convert.ToDouble(x_i), y_i));
+                GenerateDifDiv(0, DGVPoints.RowCount-1);
+            }
+            else
+            {
+                MessageBox.Show("You can't add node with existing argument: " + x_i, "Error");
+            }
+        }
+
+        // *** DataGridView ***
         private void DGVPoints_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
             if (e.RowIndex < 0)
@@ -58,61 +109,7 @@ namespace NewtonInterpolationPolynomial
                 e.Handled = true;
             }
         }
-        private void AddRowToDGVAndInterpolate()
-        {
-            //After inserting a row
-            int i = Int32.Parse(DGVPoints.Rows[DGVPoints.Rows.Count - 1].Cells[0].Value.ToString());
-            double counter = 0.0;
-            double denominator = 1.0;
-            double sum = 0.0;
-            int j = -1;
-
-            counter = Double.Parse(DGVPoints.Rows[i].Cells[2].Value.ToString());
-            if (i == 0)
-            {
-                sum = counter;
-            }
-            else
-            {
-                for (j = 0; j < difSums.Count; j++)
-                {
-                    if (j != i)
-                    {
-                        denominator *= Double.Parse(DGVPoints.Rows[i].Cells[1].Value.ToString())
-                            - Double.Parse(DGVPoints.Rows[j].Cells[1].Value.ToString());
-                    }
-                }
-                sum = difSums[difSums.Count - 1] + counter / denominator;
-            }
-            difSums.Add(difSums.Count, sum);
-        }
-        private void DeleteRowAndAndIterpolate()
-        {
-            //Remove from dict
-        }
-
-        private void BAddNode_Click(object sender, EventArgs e)
-        {
-            decimal x_i = N_x_i.Value;
-            bool can_or_not = true;
-            for (int i = 0; i < DGVPoints.RowCount; i++)
-            {
-                if ((decimal)DGVPoints[1, i].Value == x_i)
-                {
-                    can_or_not = false;
-                    break;
-                }
-            }
-            if (can_or_not == true)
-            {
-                this.DGVPoints.Rows.Add(DGVPoints.RowCount, x_i, ((Func<double, double>)(CBPolynomial.SelectedValue)).DynamicInvoke(Convert.ToDouble(x_i)));
-            }
-            else
-            {
-                MessageBox.Show("You can't add node with existing argument: " + x_i, "Error");
-            }
-        }
-
+        //Delete row
         private void DGVPoints_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0)
@@ -122,7 +119,7 @@ namespace NewtonInterpolationPolynomial
             else
             {
                 int rowIndex = -1;
-                rowIndex = e.RowIndex; //in what row cell has been clicked
+                rowIndex = e.RowIndex; //In what row cell has been clicked
 
                 if (e.ColumnIndex == 3) //delete
                 {
@@ -133,27 +130,84 @@ namespace NewtonInterpolationPolynomial
                     {
                         DGVPoints[0, i].Value = i;
                     }
-                    //calculate diff sums from rowIndex
-                }
-                else if (e.ColumnIndex == 4) //edit
-                {
-
+                    //Change DGVPointsDict
+                    int j = rowIndex;
+                    for (int i = rowIndex; i < DGVPoints.RowCount; i++)
+                    {
+                        j = i + 1; //next index
+                        DGVPointsDict.Remove(i);
+                        this.DGVPointsDict[i] = new KeyValuePair<double, double>(DGVPointsDict[j].Key, DGVPointsDict[j].Value);
+                    }
+                    DGVPointsDict.Remove(j); //Remove last element in dict
+                    for (int i = 0; i < DGVPoints.RowCount-rowIndex+1; i++)
+                    {
+                        difDiv.RemoveAt(difDiv.Count - 1);
+                    }
+                   
+                    GenerateDifDiv(0, DGVPoints.RowCount-1);
                 }
             }
         }
+        //Edit cell
+        private void DGVPoints_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex == 1)
+            {
+                double oldx_i = Convert.ToDouble(DGVPoints[e.ColumnIndex, e.RowIndex].Value);
+                double newx_i = Convert.ToDouble(e.FormattedValue);
+                bool can_or_not = true;
+                if (oldx_i != newx_i)
+                {
+                    for (int i = 0; i < DGVPoints.RowCount; i++)
+                    {
+                        if (Convert.ToDouble(DGVPoints[1, i].Value) == newx_i)
+                        {
+                            MessageBox.Show("You can't change node to existing argument: " + newx_i, "Error");
+                            e.Cancel = true;                    
+                            can_or_not = false;
+                            break;
 
+                        }
+                    }
+                    if (can_or_not == true)
+                    {
+                        double y_iNew = (double)((KeyValuePair<string, Func<double, double>>)CBPolynomial.SelectedItem).Value.DynamicInvoke(newx_i);
+                        this.DGVPoints[2, e.RowIndex].Value = y_iNew;
+                        this.DGVPointsDict[e.RowIndex] = new KeyValuePair<double, double>(newx_i, y_iNew);
+                        for (int i = 0; i < DGVPoints.RowCount - e.RowIndex + 1; i++)
+                        {
+                            difDiv.RemoveAt(difDiv.Count - 1);
+                        }
+                        GenerateDifDiv(0, DGVPoints.RowCount-1);
+                    }
+                    DGVPoints.InvalidateRow(e.RowIndex);
+                }
+            }
+
+        }
         private void CBPolynomial_SelectedIndexChanged(object sender, EventArgs e)
         {
-            for (int i = 0; i < DGVPoints.Rows.Count; i++)
+            //Clear DifDiv
+            difDiv.Clear();
+            //calculate f(x_i) <=> y_i and change values in DGVPoints and in Dictionary
+            double result = 0.0;
+            for (int i = 0; i < DGVPoints.RowCount; i++)
             {
-                DGVPoints[2, i].Value = ((Func<double, double>)(CBPolynomial.SelectedValue)).DynamicInvoke(Convert.ToDouble(DGVPoints[1, i].Value));
+                result = (double)((KeyValuePair<string, Func<double, double>>)CBPolynomial.SelectedItem).Value.DynamicInvoke(Convert.ToDouble(this.DGVPoints[1, i].Value));
+                this.DGVPoints[2, i].Value = result;
+                if (DGVPointsDict.Count == DGVPoints.RowCount)
+                {
+                    this.DGVPointsDict[i] = new KeyValuePair<double, double>(DGVPointsDict[i].Key, Convert.ToDouble(this.DGVPoints[2, i].Value));
+                }
             }
-        }
-        private void BDraw_Click(object sender, EventArgs e)
-        {
+            difDiv.Clear();
+            GenerateDifDiv(0, DGVPoints.RowCount - 1);
+
+            DGVPoints.InvalidateColumn(2);
+
             plotView1.Model = new PlotModel();
             string title = ((KeyValuePair<string, Func<double, double>>)CBPolynomial.SelectedItem).Key;
-            plotView1.Model.Series.Add(new OxyPlot.Series.FunctionSeries((Func<double, double>)CBPolynomial.SelectedValue, -100, 100, 0.1, title));
+            plotView1.Model.Series.Add(new OxyPlot.Series.FunctionSeries(((KeyValuePair<string, Func<double, double>>)CBPolynomial.SelectedItem).Value, -100, 100, 0.1, title));
 
             var scatterSeries = new ScatterSeries() { MarkerType = MarkerType.Circle, MarkerStrokeThickness = 3 };
             scatterSeries.Points.Add(new ScatterPoint(0, 0, 5, 1));
@@ -167,6 +221,7 @@ namespace NewtonInterpolationPolynomial
             NMAX.Enabled = true;
         }
 
+        // *** Plot ***
         private void NMIN_MAX_ValueChanged(object sender, EventArgs e)
         {
             int minimum;
@@ -190,10 +245,10 @@ namespace NewtonInterpolationPolynomial
                 double min = Double.MaxValue;
 
                 double functValue = 0.0;
-                
-                for (double i = minimum; i <= maximum; i+=0.01)
+
+                for (double i = minimum; i <= maximum; i += 0.01)
                 {
-                    functValue = (double)((Func<double, double>)(CBPolynomial.SelectedValue)).DynamicInvoke(i);
+                    functValue = (double)((KeyValuePair<string, Func<double, double>>)CBPolynomial.SelectedItem).Value.DynamicInvoke(i);
                     max = max > functValue ? max : functValue;
                     min = min < functValue ? min : functValue;
                 }
@@ -208,25 +263,73 @@ namespace NewtonInterpolationPolynomial
             }
         }
 
-        private void RB_CheckedChanged(object sender, EventArgs e)
+        public double GenerateDifDiv(int down, int up)
         {
-            if (RBManual.Checked == true)
+            if (DGVPointsDict.Count > 0)
             {
-                GBManual.Enabled = true;
-                GBEquidistant.Enabled = false;
-                GBChebyshev.Enabled = false;
+                if (down.Equals(up))
+                {
+                    if (down.Equals(0))
+                    {
+                        difDiv.Add(DGVPointsDict[down].Value);
+                    }
+                    return DGVPointsDict[down].Value;
+                }
+                else if (down.Equals(0) && difDiv.Count == (up + 1))
+                {
+                    return difDiv[up];
+                }
+                else
+                {
+                    double var = 0;
+                    double numerator = 0.0;
+                    double denominator = 0.0;
+                    numerator = GenerateDifDiv(down + 1, up) + GenerateDifDiv(down, up - 1);
+                    denominator = DGVPointsDict[up].Key - DGVPointsDict[down].Key;
+                    var = numerator / denominator;
+                    if (down == 0)
+                    {
+                        difDiv.Add(var);
+                    }
+                    return var;
+                }
             }
-            else if (RBEquidistant.Checked == true)
+            else { return -1; }
+        }
+        public double Interpolate(double x)
+        {
+            if (DGVPointsDict.Count > 0)
             {
-                GBManual.Enabled = false;
-                GBEquidistant.Enabled = true;
-                GBChebyshev.Enabled = false;
+                double result = 0.0;
+                double brackets = 1;
+                for (int i = 0; i < difDiv.Count(); i++)
+                {
+                    brackets = difDiv[i];
+                    for (int j = 0; j < i; j++)
+                    {
+                        brackets *= (x - DGVPointsDict[j].Key);
+                    }
+                    result += brackets;
+                }
+                return result;
             }
-            else if (RBChebyshev.Checked == true)
+            else
             {
-                GBManual.Enabled = false;
-                GBEquidistant.Enabled = false;
-                GBChebyshev.Enabled = true;
+                return -1;
+            }
+        }
+        private void BInterpolate_Click(object sender, EventArgs e)
+        {
+            if (DGVPointsDict.Count > 0)
+            {
+                if (plotView1.Model.Series.Count == 2)
+                { plotView1.Model.Series.RemoveAt(1); }
+                plotView1.Model.Series.Add(new OxyPlot.Series.FunctionSeries(new Func<double, double>(x => Interpolate(x)), -100, 100, 0.1, "Interpolation"));
+                plotView1.Model.InvalidatePlot(true);
+            }
+            else
+            {
+                MessageBox.Show("You can't interopolate, add at least one node", "Error");
             }
         }
     }

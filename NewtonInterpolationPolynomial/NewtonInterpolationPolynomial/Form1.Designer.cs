@@ -33,11 +33,6 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.DGVPoints = new System.Windows.Forms.DataGridView();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.x_i = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.y_i = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Del = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Edit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.RBChebyshev = new System.Windows.Forms.RadioButton();
             this.RBEquidistant = new System.Windows.Forms.RadioButton();
@@ -73,11 +68,15 @@
             this.NMAX = new System.Windows.Forms.NumericUpDown();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.BDraw = new System.Windows.Forms.Button();
             this.LPolynomial = new System.Windows.Forms.Label();
             this.CBPolynomial = new System.Windows.Forms.ComboBox();
             this.BInterpolate = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.x_i = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.y_i = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Del = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Edit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -171,47 +170,7 @@
             this.DGVPoints.TabIndex = 5;
             this.DGVPoints.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVPoints_CellClick);
             this.DGVPoints.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DGVPoints_CellPainting);
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "i";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.ID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ID.Width = 46;
-            // 
-            // x_i
-            // 
-            this.x_i.HeaderText = "x_i";
-            this.x_i.Name = "x_i";
-            this.x_i.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.x_i.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.x_i.Width = 65;
-            // 
-            // y_i
-            // 
-            this.y_i.HeaderText = "y_i";
-            this.y_i.Name = "y_i";
-            this.y_i.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.y_i.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.y_i.Width = 65;
-            // 
-            // Del
-            // 
-            this.Del.HeaderText = "Delete";
-            this.Del.Name = "Del";
-            this.Del.ReadOnly = true;
-            this.Del.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Del.Text = "Delete";
-            this.Del.Width = 56;
-            // 
-            // Edit
-            // 
-            this.Edit.HeaderText = "Edit";
-            this.Edit.Name = "Edit";
-            this.Edit.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Edit.Width = 56;
+            this.DGVPoints.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.DGVPoints_CellValidating);
             // 
             // groupBox2
             // 
@@ -678,11 +637,9 @@
             // 
             // tableLayoutPanel6
             // 
-            this.tableLayoutPanel6.ColumnCount = 3;
+            this.tableLayoutPanel6.ColumnCount = 2;
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel6.Controls.Add(this.BDraw, 2, 0);
             this.tableLayoutPanel6.Controls.Add(this.LPolynomial, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.CBPolynomial, 1, 0);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -692,22 +649,6 @@
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel6.Size = new System.Drawing.Size(788, 30);
             this.tableLayoutPanel6.TabIndex = 18;
-            // 
-            // BDraw
-            // 
-            this.BDraw.BackColor = System.Drawing.Color.LightBlue;
-            this.BDraw.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.BDraw.FlatAppearance.BorderColor = System.Drawing.Color.LightBlue;
-            this.BDraw.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BDraw.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.BDraw.Location = new System.Drawing.Point(731, 6);
-            this.BDraw.Name = "BDraw";
-            this.BDraw.Size = new System.Drawing.Size(54, 21);
-            this.BDraw.TabIndex = 16;
-            this.BDraw.Text = "Draw";
-            this.toolTip1.SetToolTip(this.BDraw, "Draw f(x) and its interpolation");
-            this.BDraw.UseVisualStyleBackColor = false;
-            this.BDraw.Click += new System.EventHandler(this.BDraw_Click);
             // 
             // LPolynomial
             // 
@@ -729,8 +670,9 @@
             this.CBPolynomial.FormattingEnabled = true;
             this.CBPolynomial.Location = new System.Drawing.Point(43, 6);
             this.CBPolynomial.Name = "CBPolynomial";
-            this.CBPolynomial.Size = new System.Drawing.Size(682, 21);
+            this.CBPolynomial.Size = new System.Drawing.Size(742, 21);
             this.CBPolynomial.TabIndex = 2;
+            this.CBPolynomial.SelectedIndexChanged += new System.EventHandler(this.CBPolynomial_SelectedIndexChanged);
             // 
             // BInterpolate
             // 
@@ -744,6 +686,50 @@
             this.BInterpolate.TabIndex = 19;
             this.BInterpolate.Text = "Interpolate";
             this.BInterpolate.UseVisualStyleBackColor = false;
+            this.BInterpolate.Click += new System.EventHandler(this.BInterpolate_Click);
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "i";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.ID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ID.Width = 50;
+            // 
+            // x_i
+            // 
+            this.x_i.HeaderText = "x_i";
+            this.x_i.Name = "x_i";
+            this.x_i.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.x_i.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.x_i.Width = 90;
+            // 
+            // y_i
+            // 
+            this.y_i.HeaderText = "y_i";
+            this.y_i.Name = "y_i";
+            this.y_i.ReadOnly = true;
+            this.y_i.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.y_i.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.y_i.Width = 90;
+            // 
+            // Del
+            // 
+            this.Del.HeaderText = "Delete";
+            this.Del.Name = "Del";
+            this.Del.ReadOnly = true;
+            this.Del.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Del.Text = "Delete";
+            this.Del.Width = 56;
+            // 
+            // Edit
+            // 
+            this.Edit.HeaderText = "Edit";
+            this.Edit.Name = "Edit";
+            this.Edit.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Edit.Visible = false;
+            this.Edit.Width = 56;
             // 
             // Form1
             // 
@@ -818,15 +804,9 @@
         private System.Windows.Forms.NumericUpDown numericUpDown6;
         private System.Windows.Forms.NumericUpDown numericUpDown5;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn x_i;
-        private System.Windows.Forms.DataGridViewTextBoxColumn y_i;
-        private System.Windows.Forms.DataGridViewButtonColumn Del;
-        private System.Windows.Forms.DataGridViewButtonColumn Edit;
         private OxyPlot.WindowsForms.PlotView plotView1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
-        private System.Windows.Forms.Button BDraw;
         private System.Windows.Forms.Label LPolynomial;
         private System.Windows.Forms.ComboBox CBPolynomial;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
@@ -837,6 +817,11 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.NumericUpDown NMIN;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn x_i;
+        private System.Windows.Forms.DataGridViewTextBoxColumn y_i;
+        private System.Windows.Forms.DataGridViewButtonColumn Del;
+        private System.Windows.Forms.DataGridViewButtonColumn Edit;
     }
 }
 
