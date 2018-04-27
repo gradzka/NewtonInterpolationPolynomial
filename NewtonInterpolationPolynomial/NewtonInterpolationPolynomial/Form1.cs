@@ -77,7 +77,6 @@ namespace NewtonInterpolationPolynomial
                 MessageBox.Show("You can't add node with existing argument: " + x_i, "Error");
             }
         }
-
         // *** DataGridView ***
         private void DGVPoints_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
@@ -143,8 +142,11 @@ namespace NewtonInterpolationPolynomial
                     {
                         difDiv.RemoveAt(difDiv.Count - 1);
                     }
-                   
-                    GenerateDifDiv(0, DGVPoints.RowCount-1);
+                    if (rowIndex != DGVPoints.RowCount)
+                    {
+                        GenerateDifDiv(0, DGVPoints.RowCount - 1);
+                    }
+
                 }
             }
         }
@@ -263,7 +265,7 @@ namespace NewtonInterpolationPolynomial
             }
         }
 
-        public double GenerateDifDiv(int down, int up)
+           public double GenerateDifDiv(int down, int up)
         {
             if (DGVPointsDict.Count > 0)
             {
@@ -275,16 +277,23 @@ namespace NewtonInterpolationPolynomial
                     }
                     return DGVPointsDict[down].Value;
                 }
-                else if (down.Equals(0) && difDiv.Count == (up + 1))
-                {
-                    return difDiv[up];
-                }
+                //else if (down.Equals(0) && difDiv.Count == (up + 1))
+                //{
+                //    return difDiv[up];
+                //}
                 else
                 {
                     double var = 0;
                     double numerator = 0.0;
                     double denominator = 0.0;
-                    numerator = GenerateDifDiv(down + 1, up) - GenerateDifDiv(down, up - 1);
+                    if (down == 0 && difDiv.Count == up)
+                    {
+                        numerator = GenerateDifDiv(down + 1, up) - difDiv[up - 1];
+                    }
+                    else
+                    {
+                        numerator = GenerateDifDiv(down + 1, up) - GenerateDifDiv(down, up - 1);
+                    }
                     denominator = DGVPointsDict[up].Key - DGVPointsDict[down].Key;
                     var = numerator / denominator;
                     if (down == 0)
