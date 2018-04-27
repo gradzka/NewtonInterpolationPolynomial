@@ -299,7 +299,7 @@ namespace NewtonInterpolationPolynomial
             }
         }
 
-           public double GenerateDifDiv(int down, int up)
+        public double GenerateDifDiv(int down, int up)
         {
             if (DGVPointsDict.Count > 0)
             {
@@ -377,6 +377,63 @@ namespace NewtonInterpolationPolynomial
             {
                 MessageBox.Show("You can't interopolate, add at least one node", "Error");
             }
+        }
+
+        private void BAddNodeEquidistant_Click(object sender, EventArgs e)
+        {
+            double x_0 = Convert.ToDouble(N_x_0_equi.Value);
+            int n = (int)(N_n_equi.Value);
+            double step = Convert.ToDouble(N_step_equi.Value);
+            //Clear DGV
+            //Clear Dict
+            //Clear list
+            DGVPoints.Rows.Clear();
+            DGVPointsDict.Clear();
+            difDiv.Clear();
+
+            //Fill DGV and dict
+            double result = 0.0;
+            result = (double)((KeyValuePair<string, Func<double, double>>)CBPolynomial.SelectedItem).Value.DynamicInvoke(x_0);
+            this.DGVPoints.Rows.Add(0, x_0, result);
+            this.DGVPointsDict.Add(0, new KeyValuePair<double, double>(Convert.ToDouble(x_0), result));
+            for (int i = 1; i < n; i++)
+            {
+                x_0 = x_0 + step;
+                result = (double)((KeyValuePair<string, Func<double, double>>)CBPolynomial.SelectedItem).Value.DynamicInvoke(x_0);
+                this.DGVPoints.Rows.Add(i, x_0, result);
+                this.DGVPointsDict.Add(i, new KeyValuePair<double, double>(Convert.ToDouble(x_0), result));
+            }
+            this.DGVPoints.Refresh();
+            //Fill list
+            if (n==0)
+            {
+                GenerateDifDiv(0, 0);
+            }
+            else
+            {
+                GenerateDifDiv(0, n - 1);
+            }
+
+
+            //Clear plot
+            //Plot
+            for (int i = plotView1.Model.Series.Count - 1; i >= 0; i--)
+            {
+                plotView1.Model.Series.RemoveAt(i);
+            }
+            string title = ((KeyValuePair<string, Func<double, double>>)CBPolynomial.SelectedItem).Key;
+            plotView1.Model.Series.Add(new OxyPlot.Series.FunctionSeries(((KeyValuePair<string, Func<double, double>>)CBPolynomial.SelectedItem).Value, -100, 100, 0.1, title));
+           // plotView1.Model.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = OxyPlot.Axes.AxisPosition.Left, ExtraGridlines = new double[] { 0 }, ExtraGridlineThickness = 1, ExtraGridlineColor = OxyColors.Black, });
+            //plotView1.Model.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = OxyPlot.Axes.AxisPosition.Top, ExtraGridlines = new double[] { 0 }, ExtraGridlineThickness = 1, ExtraGridlineColor = OxyColors.Black, });
+            scatterSeries.Points.Clear();
+            foreach (KeyValuePair<double, double> item in DGVPointsDict.Values)
+            {
+                scatterSeries.Points.Add(new ScatterPoint(item.Key, item.Value, 5, 1));
+            }
+            plotView1.Model.Series.Remove(scatterSeries);
+            plotView1.Model.Series.Add(scatterSeries);
+            plotView1.Model.InvalidatePlot(true);
+
         }
     }
 }

@@ -45,12 +45,12 @@
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.GBEquidistant = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.N_step_equi = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.N_n_equi = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.BAddNodeEquidistant = new System.Windows.Forms.Button();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.N_x_0_equi = new System.Windows.Forms.NumericUpDown();
             this.GBManual = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.N_x_i = new System.Windows.Forms.NumericUpDown();
@@ -58,10 +58,10 @@
             this.GBChebyshev = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
             this.BAddNodeChebyshev = new System.Windows.Forms.Button();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
+            this.N_n_Cheb = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
-            this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
+            this.N_x_0_Cheb = new System.Windows.Forms.NumericUpDown();
+            this.N_x_n_1_Cheb = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.plotView1 = new OxyPlot.WindowsForms.PlotView();
@@ -84,15 +84,15 @@
             this.groupBox2.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.GBEquidistant.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.N_step_equi)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.N_n_equi)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.N_x_0_equi)).BeginInit();
             this.GBManual.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.N_x_i)).BeginInit();
             this.GBChebyshev.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.N_n_Cheb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.N_x_0_Cheb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.N_x_n_1_Cheb)).BeginInit();
             this.tableLayoutPanel7.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NMIN)).BeginInit();
@@ -285,12 +285,12 @@
             // GBEquidistant
             // 
             this.GBEquidistant.Controls.Add(this.label4);
-            this.GBEquidistant.Controls.Add(this.numericUpDown3);
+            this.GBEquidistant.Controls.Add(this.N_step_equi);
             this.GBEquidistant.Controls.Add(this.label3);
-            this.GBEquidistant.Controls.Add(this.numericUpDown2);
+            this.GBEquidistant.Controls.Add(this.N_n_equi);
             this.GBEquidistant.Controls.Add(this.label2);
             this.GBEquidistant.Controls.Add(this.BAddNodeEquidistant);
-            this.GBEquidistant.Controls.Add(this.numericUpDown1);
+            this.GBEquidistant.Controls.Add(this.N_x_0_equi);
             this.GBEquidistant.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GBEquidistant.Enabled = false;
             this.GBEquidistant.Location = new System.Drawing.Point(3, 81);
@@ -309,24 +309,24 @@
             this.label4.TabIndex = 8;
             this.label4.Text = "step =";
             // 
-            // numericUpDown3
+            // N_step_equi
             // 
-            this.numericUpDown3.DecimalPlaces = 2;
-            this.numericUpDown3.Increment = new decimal(new int[] {
+            this.N_step_equi.DecimalPlaces = 2;
+            this.N_step_equi.Location = new System.Drawing.Point(232, 19);
+            this.N_step_equi.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             131072});
-            this.numericUpDown3.Location = new System.Drawing.Point(232, 19);
-            this.numericUpDown3.Maximum = new decimal(new int[] {
-            10,
+            this.N_step_equi.Name = "N_step_equi";
+            this.N_step_equi.Size = new System.Drawing.Size(65, 20);
+            this.N_step_equi.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.N_step_equi, "min = 0\r\nmax = 10\r\ninc = 0,01");
+            this.N_step_equi.Value = new decimal(new int[] {
+            1,
             0,
             0,
             0});
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(65, 20);
-            this.numericUpDown3.TabIndex = 9;
-            this.toolTip1.SetToolTip(this.numericUpDown3, "min = 0\r\nmax = 10\r\ninc = 0,01");
             // 
             // label3
             // 
@@ -337,13 +337,23 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "n =";
             // 
-            // numericUpDown2
+            // N_n_equi
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(124, 19);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(65, 20);
-            this.numericUpDown2.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.numericUpDown2, "min = 0\r\nmax = 100\r\ninc = 1");
+            this.N_n_equi.Location = new System.Drawing.Point(124, 19);
+            this.N_n_equi.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.N_n_equi.Name = "N_n_equi";
+            this.N_n_equi.Size = new System.Drawing.Size(65, 20);
+            this.N_n_equi.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.N_n_equi, "min = 0\r\nmax = 100\r\ninc = 1");
+            this.N_n_equi.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // label2
             // 
@@ -366,25 +376,26 @@
             this.BAddNodeEquidistant.TabIndex = 4;
             this.BAddNodeEquidistant.Text = "Add";
             this.BAddNodeEquidistant.UseVisualStyleBackColor = false;
+            this.BAddNodeEquidistant.Click += new System.EventHandler(this.BAddNodeEquidistant_Click);
             // 
-            // numericUpDown1
+            // N_x_0_equi
             // 
-            this.numericUpDown1.DecimalPlaces = 2;
-            this.numericUpDown1.Increment = new decimal(new int[] {
+            this.N_x_0_equi.DecimalPlaces = 2;
+            this.N_x_0_equi.Increment = new decimal(new int[] {
             1,
             0,
             0,
             131072});
-            this.numericUpDown1.Location = new System.Drawing.Point(35, 19);
-            this.numericUpDown1.Minimum = new decimal(new int[] {
+            this.N_x_0_equi.Location = new System.Drawing.Point(35, 19);
+            this.N_x_0_equi.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(65, 20);
-            this.numericUpDown1.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.numericUpDown1, "min = -100\r\nmax = 100\r\ninc = 0,01");
+            this.N_x_0_equi.Name = "N_x_0_equi";
+            this.N_x_0_equi.Size = new System.Drawing.Size(65, 20);
+            this.N_x_0_equi.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.N_x_0_equi, "min = -100\r\nmax = 100\r\ninc = 0,01");
             // 
             // GBManual
             // 
@@ -445,10 +456,10 @@
             // 
             this.GBChebyshev.Controls.Add(this.label5);
             this.GBChebyshev.Controls.Add(this.BAddNodeChebyshev);
-            this.GBChebyshev.Controls.Add(this.numericUpDown4);
+            this.GBChebyshev.Controls.Add(this.N_n_Cheb);
             this.GBChebyshev.Controls.Add(this.label6);
-            this.GBChebyshev.Controls.Add(this.numericUpDown6);
-            this.GBChebyshev.Controls.Add(this.numericUpDown5);
+            this.GBChebyshev.Controls.Add(this.N_x_0_Cheb);
+            this.GBChebyshev.Controls.Add(this.N_x_n_1_Cheb);
             this.GBChebyshev.Controls.Add(this.label7);
             this.GBChebyshev.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GBChebyshev.Enabled = false;
@@ -481,13 +492,13 @@
             this.BAddNodeChebyshev.Text = "Add";
             this.BAddNodeChebyshev.UseVisualStyleBackColor = false;
             // 
-            // numericUpDown4
+            // N_n_Cheb
             // 
-            this.numericUpDown4.Location = new System.Drawing.Point(122, 19);
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(65, 20);
-            this.numericUpDown4.TabIndex = 15;
-            this.toolTip1.SetToolTip(this.numericUpDown4, "min = 0");
+            this.N_n_Cheb.Location = new System.Drawing.Point(122, 19);
+            this.N_n_Cheb.Name = "N_n_Cheb";
+            this.N_n_Cheb.Size = new System.Drawing.Size(65, 20);
+            this.N_n_Cheb.TabIndex = 15;
+            this.toolTip1.SetToolTip(this.N_n_Cheb, "min = 0");
             // 
             // label6
             // 
@@ -498,43 +509,43 @@
             this.label6.TabIndex = 12;
             this.label6.Text = "x_n-1 =";
             // 
-            // numericUpDown6
+            // N_x_0_Cheb
             // 
-            this.numericUpDown6.DecimalPlaces = 2;
-            this.numericUpDown6.Increment = new decimal(new int[] {
+            this.N_x_0_Cheb.DecimalPlaces = 2;
+            this.N_x_0_Cheb.Increment = new decimal(new int[] {
             1,
             0,
             0,
             131072});
-            this.numericUpDown6.Location = new System.Drawing.Point(35, 19);
-            this.numericUpDown6.Minimum = new decimal(new int[] {
+            this.N_x_0_Cheb.Location = new System.Drawing.Point(35, 19);
+            this.N_x_0_Cheb.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
-            this.numericUpDown6.Name = "numericUpDown6";
-            this.numericUpDown6.Size = new System.Drawing.Size(65, 20);
-            this.numericUpDown6.TabIndex = 11;
-            this.toolTip1.SetToolTip(this.numericUpDown6, "min = -100\r\nmax = 100\r\ninc = 0,01");
+            this.N_x_0_Cheb.Name = "N_x_0_Cheb";
+            this.N_x_0_Cheb.Size = new System.Drawing.Size(65, 20);
+            this.N_x_0_Cheb.TabIndex = 11;
+            this.toolTip1.SetToolTip(this.N_x_0_Cheb, "min = -100\r\nmax = 100\r\ninc = 0,01");
             // 
-            // numericUpDown5
+            // N_x_n_1_Cheb
             // 
-            this.numericUpDown5.DecimalPlaces = 2;
-            this.numericUpDown5.Increment = new decimal(new int[] {
+            this.N_x_n_1_Cheb.DecimalPlaces = 2;
+            this.N_x_n_1_Cheb.Increment = new decimal(new int[] {
             1,
             0,
             0,
             131072});
-            this.numericUpDown5.Location = new System.Drawing.Point(231, 19);
-            this.numericUpDown5.Minimum = new decimal(new int[] {
+            this.N_x_n_1_Cheb.Location = new System.Drawing.Point(231, 19);
+            this.N_x_n_1_Cheb.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
-            this.numericUpDown5.Name = "numericUpDown5";
-            this.numericUpDown5.Size = new System.Drawing.Size(65, 20);
-            this.numericUpDown5.TabIndex = 13;
-            this.toolTip1.SetToolTip(this.numericUpDown5, "min = -100\r\nmax = 100\r\ninc = 0,01\r\n");
+            this.N_x_n_1_Cheb.Name = "N_x_n_1_Cheb";
+            this.N_x_n_1_Cheb.Size = new System.Drawing.Size(65, 20);
+            this.N_x_n_1_Cheb.TabIndex = 13;
+            this.toolTip1.SetToolTip(this.N_x_n_1_Cheb, "min = -100\r\nmax = 100\r\ninc = 0,01\r\n");
             // 
             // label7
             // 
@@ -749,17 +760,17 @@
             this.tableLayoutPanel5.ResumeLayout(false);
             this.GBEquidistant.ResumeLayout(false);
             this.GBEquidistant.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.N_step_equi)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.N_n_equi)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.N_x_0_equi)).EndInit();
             this.GBManual.ResumeLayout(false);
             this.GBManual.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.N_x_i)).EndInit();
             this.GBChebyshev.ResumeLayout(false);
             this.GBChebyshev.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.N_n_Cheb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.N_x_0_Cheb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.N_x_n_1_Cheb)).EndInit();
             this.tableLayoutPanel7.ResumeLayout(false);
             this.tableLayoutPanel7.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -785,12 +796,12 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.GroupBox GBEquidistant;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
+        private System.Windows.Forms.NumericUpDown N_step_equi;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown N_n_equi;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button BAddNodeEquidistant;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown N_x_0_equi;
         private System.Windows.Forms.GroupBox GBManual;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown N_x_i;
@@ -799,10 +810,10 @@
         private System.Windows.Forms.Button BAddNodeChebyshev;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown numericUpDown4;
+        private System.Windows.Forms.NumericUpDown N_n_Cheb;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown numericUpDown6;
-        private System.Windows.Forms.NumericUpDown numericUpDown5;
+        private System.Windows.Forms.NumericUpDown N_x_0_Cheb;
+        private System.Windows.Forms.NumericUpDown N_x_n_1_Cheb;
         private System.Windows.Forms.Label label7;
         private OxyPlot.WindowsForms.PlotView plotView1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
