@@ -19,6 +19,7 @@ namespace NewtonInterpolationPolynomial
         List<double> difDiv = new List<double>();
         Dictionary<string, Func<double, double>> functions = new Dictionary<string, Func<double, double>>();
         ScatterSeries scatterSeries = new ScatterSeries() { MarkerType = MarkerType.Circle, MarkerStrokeThickness = 3 };
+        string interpolationPolynomial = "";
         public Form1()
         {
             InitializeComponent();
@@ -194,11 +195,15 @@ namespace NewtonInterpolationPolynomial
                         plotView1.Model.Series.Add(scatterSeries);                     
                         plotView1.Model.InvalidatePlot(true);
 
-                        for (int i = 0; i < DGVPoints.RowCount - e.RowIndex + 1; i++)
+                        for (int i = 0; i < DGVPoints.RowCount - e.RowIndex; i++)
                         {
                             difDiv.RemoveAt(difDiv.Count - 1);
                         }
-                        GenerateDifDiv(0, DGVPoints.RowCount-1);
+                        if (DGVPoints.RowCount>0)
+                        {
+                            GenerateDifDiv(0, DGVPoints.RowCount - 1);
+                        }
+                        
                     }
                     DGVPoints.InvalidateRow(e.RowIndex);
                 }
@@ -341,6 +346,7 @@ namespace NewtonInterpolationPolynomial
         }
         public double Interpolate(double x)
         {
+            interpolationPolynomial = "";
             if (DGVPointsDict.Count > 0)
             {
                 double result = 0.0;
@@ -348,9 +354,15 @@ namespace NewtonInterpolationPolynomial
                 for (int i = 0; i < difDiv.Count(); i++)
                 {
                     brackets = difDiv[i];
+                    interpolationPolynomial += "("+brackets+")";
                     for (int j = 0; j < i; j++)
                     {
                         brackets *= (x - DGVPointsDict[j].Key);
+                        interpolationPolynomial += "(x - (" + DGVPointsDict[j].Key + "))";
+                    }
+                    if (difDiv.Count() != 1 && i <difDiv.Count()-1)
+                    {
+                        interpolationPolynomial += " + ";
                     }
                     result += brackets;
                 }
@@ -370,7 +382,9 @@ namespace NewtonInterpolationPolynomial
                     plotView1.Model.Series.RemoveAt(i);
                }
                 plotView1.Model.Series.Add(scatterSeries);
-                plotView1.Model.Series.Add(new OxyPlot.Series.FunctionSeries(new Func<double, double>(x => Interpolate(x)), -100, 100, 0.1, "Interpolation"));
+                plotView1.Model.Series.Add(new OxyPlot.Series.FunctionSeries(new Func<double, double>(x => Interpolate(x)), -100, 100, 0.1, "Interpolation polynomial"));
+                // plotView1.Model.Series[plotView1.Model.Series.Count - 1].Title = interpolationPolynomial;
+                TBInterpolationPolynomial.Text = interpolationPolynomial;
                 plotView1.Model.InvalidatePlot(true);     
             }
             else
@@ -434,6 +448,73 @@ namespace NewtonInterpolationPolynomial
             plotView1.Model.Series.Add(scatterSeries);
             plotView1.Model.InvalidatePlot(true);
 
+        }
+
+        private void BAddNodeChebyshev_Click(object sender, EventArgs e)
+        {
+            double a = Convert.ToDouble(N_a_Cheb.Value);
+            double b = Convert.ToDouble(N_b_Cheb.Value);
+            int n = (int)(N_n_Cheb.Value);
+            double x_i = 0.0;
+            //Clear DGV
+            //Clear Dict
+            //Clear list
+            DGVPoints.Rows.Clear();
+            DGVPointsDict.Clear();
+            difDiv.Clear();
+            //Fill DGV and dict
+            double result = 0.0;
+            for (int i = 0; i < n; i++)
+            {
+                x_i = ((b - a) / 2) * Math.Cos(((double)(2 * i + 1) / (n + 1)) * (Math.PI / 2)) + ((a + b) / 2);
+                result = (double)((KeyValuePair<string, Func<double, double>>)CBPolynomial.SelectedItem).Value.DynamicInvoke(x_i);
+                this.DGVPoints.Rows.Add(i, x_i, result);
+                this.DGVPointsDict.Add(i, new KeyValuePair<double, double>(x_i, result));
+            }
+            this.DGVPoints.Refresh();
+            //Fill list
+            if (n == 0)
+            {
+                GenerateDifDiv(0, 0);
+            }
+            else
+            {
+                GenerateDifDiv(0, n - 1);
+            }
+            //Clear plot
+            //Plot
+            for (int i = plotView1.Model.Series.Count - 1; i >= 0; i--)
+            {
+                plotView1.Model.Series.RemoveAt(i);
+            }
+            string title = ((KeyValuePair<string, Func<double, double>>)CBPolynomial.SelectedItem).Key;
+            plotView1.Model.Series.Add(new OxyPlot.Series.FunctionSeries(((KeyValuePair<string, Func<double, double>>)CBPolynomial.SelectedItem).Value, -100, 100, 0.1, title));
+            // plotView1.Model.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = OxyPlot.Axes.AxisPosition.Left, ExtraGridlines = new double[] { 0 }, ExtraGridlineThickness = 1, ExtraGridlineColor = OxyColors.Black, });
+            //plotView1.Model.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = OxyPlot.Axes.AxisPosition.Top, ExtraGridlines = new double[] { 0 }, ExtraGridlineThickness = 1, ExtraGridlineColor = OxyColors.Black, });
+            scatterSeries.Points.Clear();
+            foreach (KeyValuePair<double, double> item in DGVPointsDict.Values)
+            {
+                scatterSeries.Points.Add(new ScatterPoint(item.Key, item.Value, 5, 1));
+            }
+            plotView1.Model.Series.Remove(scatterSeries);
+            plotView1.Model.Series.Add(scatterSeries);
+            plotView1.Model.InvalidatePlot(true);
+        }
+
+        private void N_a_Cheb_Validating(object sender, CancelEventArgs e)
+        {
+            if (Convert.ToDouble(N_a_Cheb.Value)>=Convert.ToDouble(N_b_Cheb.Value))
+            {
+                N_a_Cheb.Value = N_b_Cheb.Value-(decimal)0.01;
+            }
+        }
+
+        private void N_b_Cheb_Validating(object sender, CancelEventArgs e)
+        {
+            if (Convert.ToDouble(N_a_Cheb.Value) >= Convert.ToDouble(N_b_Cheb.Value))
+            {
+                N_b_Cheb.Value = N_a_Cheb.Value + (decimal)0.01;
+            }
         }
     }
 }

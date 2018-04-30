@@ -60,8 +60,8 @@
             this.BAddNodeChebyshev = new System.Windows.Forms.Button();
             this.N_n_Cheb = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
-            this.N_x_0_Cheb = new System.Windows.Forms.NumericUpDown();
-            this.N_x_n_1_Cheb = new System.Windows.Forms.NumericUpDown();
+            this.N_a_Cheb = new System.Windows.Forms.NumericUpDown();
+            this.N_b_Cheb = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.plotView1 = new OxyPlot.WindowsForms.PlotView();
@@ -77,6 +77,7 @@
             this.CBPolynomial = new System.Windows.Forms.ComboBox();
             this.BInterpolate = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.TBInterpolationPolynomial = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -91,8 +92,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.N_x_i)).BeginInit();
             this.GBChebyshev.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.N_n_Cheb)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.N_x_0_Cheb)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.N_x_n_1_Cheb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.N_a_Cheb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.N_b_Cheb)).BeginInit();
             this.tableLayoutPanel7.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NMIN)).BeginInit();
@@ -114,7 +115,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 93.00411F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.995885F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1120, 592);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1120, 503);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -129,7 +130,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1114, 544);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1114, 461);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // tableLayoutPanel3
@@ -146,7 +147,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 95F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 240F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(314, 538);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(314, 455);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // DGVPoints
@@ -321,7 +322,7 @@
             this.N_step_equi.Name = "N_step_equi";
             this.N_step_equi.Size = new System.Drawing.Size(65, 20);
             this.N_step_equi.TabIndex = 9;
-            this.toolTip1.SetToolTip(this.N_step_equi, "min = 0\r\nmax = 10\r\ninc = 0,01");
+            this.toolTip1.SetToolTip(this.N_step_equi, "min = 0,01\r\nmax = 10\r\ninc = 0,01");
             this.N_step_equi.Value = new decimal(new int[] {
             1,
             0,
@@ -370,11 +371,11 @@
             this.BAddNodeEquidistant.FlatAppearance.BorderColor = System.Drawing.Color.YellowGreen;
             this.BAddNodeEquidistant.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BAddNodeEquidistant.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.BAddNodeEquidistant.Location = new System.Drawing.Point(231, 45);
+            this.BAddNodeEquidistant.Location = new System.Drawing.Point(154, 45);
             this.BAddNodeEquidistant.Name = "BAddNodeEquidistant";
-            this.BAddNodeEquidistant.Size = new System.Drawing.Size(65, 21);
+            this.BAddNodeEquidistant.Size = new System.Drawing.Size(143, 21);
             this.BAddNodeEquidistant.TabIndex = 4;
-            this.BAddNodeEquidistant.Text = "Add";
+            this.BAddNodeEquidistant.Text = "Clear DGV and Add nodes";
             this.BAddNodeEquidistant.UseVisualStyleBackColor = false;
             this.BAddNodeEquidistant.Click += new System.EventHandler(this.BAddNodeEquidistant_Click);
             // 
@@ -448,7 +449,7 @@
             this.BAddNodeManual.Name = "BAddNodeManual";
             this.BAddNodeManual.Size = new System.Drawing.Size(65, 21);
             this.BAddNodeManual.TabIndex = 2;
-            this.BAddNodeManual.Text = "Add";
+            this.BAddNodeManual.Text = "Add node";
             this.BAddNodeManual.UseVisualStyleBackColor = false;
             this.BAddNodeManual.Click += new System.EventHandler(this.BAddNode_Click);
             // 
@@ -458,8 +459,8 @@
             this.GBChebyshev.Controls.Add(this.BAddNodeChebyshev);
             this.GBChebyshev.Controls.Add(this.N_n_Cheb);
             this.GBChebyshev.Controls.Add(this.label6);
-            this.GBChebyshev.Controls.Add(this.N_x_0_Cheb);
-            this.GBChebyshev.Controls.Add(this.N_x_n_1_Cheb);
+            this.GBChebyshev.Controls.Add(this.N_a_Cheb);
+            this.GBChebyshev.Controls.Add(this.N_b_Cheb);
             this.GBChebyshev.Controls.Add(this.label7);
             this.GBChebyshev.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GBChebyshev.Enabled = false;
@@ -473,7 +474,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(100, 21);
+            this.label5.Location = new System.Drawing.Point(209, 23);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(22, 13);
             this.label5.TabIndex = 14;
@@ -485,76 +486,84 @@
             this.BAddNodeChebyshev.FlatAppearance.BorderColor = System.Drawing.Color.YellowGreen;
             this.BAddNodeChebyshev.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BAddNodeChebyshev.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.BAddNodeChebyshev.Location = new System.Drawing.Point(231, 45);
+            this.BAddNodeChebyshev.Location = new System.Drawing.Point(153, 45);
             this.BAddNodeChebyshev.Name = "BAddNodeChebyshev";
-            this.BAddNodeChebyshev.Size = new System.Drawing.Size(65, 21);
+            this.BAddNodeChebyshev.Size = new System.Drawing.Size(143, 21);
             this.BAddNodeChebyshev.TabIndex = 5;
-            this.BAddNodeChebyshev.Text = "Add";
+            this.BAddNodeChebyshev.Text = "Clear DGV and Add nodes";
             this.BAddNodeChebyshev.UseVisualStyleBackColor = false;
+            this.BAddNodeChebyshev.Click += new System.EventHandler(this.BAddNodeChebyshev_Click);
             // 
             // N_n_Cheb
             // 
-            this.N_n_Cheb.Location = new System.Drawing.Point(122, 19);
+            this.N_n_Cheb.Location = new System.Drawing.Point(231, 19);
+            this.N_n_Cheb.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.N_n_Cheb.Name = "N_n_Cheb";
             this.N_n_Cheb.Size = new System.Drawing.Size(65, 20);
             this.N_n_Cheb.TabIndex = 15;
-            this.toolTip1.SetToolTip(this.N_n_Cheb, "min = 0");
+            this.toolTip1.SetToolTip(this.N_n_Cheb, "min = 1");
+            this.N_n_Cheb.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(188, 21);
+            this.label6.Location = new System.Drawing.Point(102, 23);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(42, 13);
+            this.label6.Size = new System.Drawing.Size(22, 13);
             this.label6.TabIndex = 12;
-            this.label6.Text = "x_n-1 =";
+            this.label6.Text = "b =";
             // 
-            // N_x_0_Cheb
+            // N_a_Cheb
             // 
-            this.N_x_0_Cheb.DecimalPlaces = 2;
-            this.N_x_0_Cheb.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.N_x_0_Cheb.Location = new System.Drawing.Point(35, 19);
-            this.N_x_0_Cheb.Minimum = new decimal(new int[] {
+            this.N_a_Cheb.DecimalPlaces = 2;
+            this.N_a_Cheb.Location = new System.Drawing.Point(31, 19);
+            this.N_a_Cheb.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
-            this.N_x_0_Cheb.Name = "N_x_0_Cheb";
-            this.N_x_0_Cheb.Size = new System.Drawing.Size(65, 20);
-            this.N_x_0_Cheb.TabIndex = 11;
-            this.toolTip1.SetToolTip(this.N_x_0_Cheb, "min = -100\r\nmax = 100\r\ninc = 0,01");
+            this.N_a_Cheb.Name = "N_a_Cheb";
+            this.N_a_Cheb.Size = new System.Drawing.Size(65, 20);
+            this.N_a_Cheb.TabIndex = 11;
+            this.toolTip1.SetToolTip(this.N_a_Cheb, "min = -100\r\nmax = 100\r\ninc = 0,01");
+            this.N_a_Cheb.Validating += new System.ComponentModel.CancelEventHandler(this.N_a_Cheb_Validating);
             // 
-            // N_x_n_1_Cheb
+            // N_b_Cheb
             // 
-            this.N_x_n_1_Cheb.DecimalPlaces = 2;
-            this.N_x_n_1_Cheb.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.N_x_n_1_Cheb.Location = new System.Drawing.Point(231, 19);
-            this.N_x_n_1_Cheb.Minimum = new decimal(new int[] {
+            this.N_b_Cheb.DecimalPlaces = 2;
+            this.N_b_Cheb.Location = new System.Drawing.Point(124, 19);
+            this.N_b_Cheb.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
-            this.N_x_n_1_Cheb.Name = "N_x_n_1_Cheb";
-            this.N_x_n_1_Cheb.Size = new System.Drawing.Size(65, 20);
-            this.N_x_n_1_Cheb.TabIndex = 13;
-            this.toolTip1.SetToolTip(this.N_x_n_1_Cheb, "min = -100\r\nmax = 100\r\ninc = 0,01\r\n");
+            this.N_b_Cheb.Name = "N_b_Cheb";
+            this.N_b_Cheb.Size = new System.Drawing.Size(65, 20);
+            this.N_b_Cheb.TabIndex = 13;
+            this.toolTip1.SetToolTip(this.N_b_Cheb, "min = -100\r\nmax = 100\r\ninc = 0,01\r\n");
+            this.N_b_Cheb.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.N_b_Cheb.Validating += new System.ComponentModel.CancelEventHandler(this.N_b_Cheb_Validating);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 21);
+            this.label7.Location = new System.Drawing.Point(9, 23);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(33, 13);
+            this.label7.Size = new System.Drawing.Size(22, 13);
             this.label7.TabIndex = 10;
-            this.label7.Text = "x_0 =";
+            this.label7.Text = "a =";
             // 
             // tableLayoutPanel7
             // 
@@ -563,14 +572,16 @@
             this.tableLayoutPanel7.Controls.Add(this.plotView1, 0, 0);
             this.tableLayoutPanel7.Controls.Add(this.label8, 0, 2);
             this.tableLayoutPanel7.Controls.Add(this.panel1, 0, 1);
+            this.tableLayoutPanel7.Controls.Add(this.TBInterpolationPolynomial, 0, 3);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel7.Location = new System.Drawing.Point(323, 3);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
-            this.tableLayoutPanel7.RowCount = 3;
+            this.tableLayoutPanel7.RowCount = 4;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(788, 538);
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(788, 455);
             this.tableLayoutPanel7.TabIndex = 1;
             // 
             // plotView1
@@ -580,7 +591,7 @@
             this.plotView1.Location = new System.Drawing.Point(3, 3);
             this.plotView1.Name = "plotView1";
             this.plotView1.PanCursor = System.Windows.Forms.Cursors.Hand;
-            this.plotView1.Size = new System.Drawing.Size(782, 474);
+            this.plotView1.Size = new System.Drawing.Size(782, 346);
             this.plotView1.TabIndex = 1;
             this.plotView1.Text = "plotView1";
             this.plotView1.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
@@ -591,9 +602,9 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label8.Location = new System.Drawing.Point(3, 508);
+            this.label8.Location = new System.Drawing.Point(3, 380);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(782, 30);
+            this.label8.Size = new System.Drawing.Size(782, 28);
             this.label8.TabIndex = 2;
             this.label8.Text = "max absolute error: ? on the interval <-3,3> with step: 0.1";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -605,7 +616,7 @@
             this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.NMAX);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 483);
+            this.panel1.Location = new System.Drawing.Point(3, 355);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(782, 22);
             this.panel1.TabIndex = 3;
@@ -682,11 +693,11 @@
             this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel6, 1, 0);
             this.tableLayoutPanel4.Controls.Add(this.BInterpolate, 0, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 553);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 470);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(1114, 36);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(1114, 30);
             this.tableLayoutPanel4.TabIndex = 1;
             // 
             // tableLayoutPanel6
@@ -701,28 +712,30 @@
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 1;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(788, 30);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(788, 24);
             this.tableLayoutPanel6.TabIndex = 18;
             // 
             // LPolynomial
             // 
-            this.LPolynomial.AutoSize = true;
+            this.LPolynomial.BackColor = System.Drawing.Color.LimeGreen;
             this.LPolynomial.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.LPolynomial.Location = new System.Drawing.Point(3, 6);
-            this.LPolynomial.Margin = new System.Windows.Forms.Padding(3, 0, 0, 8);
+            this.LPolynomial.Location = new System.Drawing.Point(2, 2);
+            this.LPolynomial.Margin = new System.Windows.Forms.Padding(2, 2, 2, 1);
             this.LPolynomial.Name = "LPolynomial";
             this.LPolynomial.Padding = new System.Windows.Forms.Padding(0, 0, 0, 3);
-            this.LPolynomial.Size = new System.Drawing.Size(37, 16);
+            this.LPolynomial.Size = new System.Drawing.Size(36, 21);
             this.LPolynomial.TabIndex = 2;
             this.LPolynomial.Text = "f(x) = ";
             this.LPolynomial.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // CBPolynomial
             // 
+            this.CBPolynomial.BackColor = System.Drawing.SystemColors.Window;
             this.CBPolynomial.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.CBPolynomial.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBPolynomial.FormattingEnabled = true;
-            this.CBPolynomial.Location = new System.Drawing.Point(43, 6);
+            this.CBPolynomial.Location = new System.Drawing.Point(43, 3);
+            this.CBPolynomial.Margin = new System.Windows.Forms.Padding(3, 3, 3, 1);
             this.CBPolynomial.Name = "CBPolynomial";
             this.CBPolynomial.Size = new System.Drawing.Size(742, 21);
             this.CBPolynomial.TabIndex = 2;
@@ -734,7 +747,7 @@
             this.BInterpolate.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.BInterpolate.FlatAppearance.BorderColor = System.Drawing.Color.Turquoise;
             this.BInterpolate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BInterpolate.Location = new System.Drawing.Point(3, 10);
+            this.BInterpolate.Location = new System.Drawing.Point(3, 4);
             this.BInterpolate.Name = "BInterpolate";
             this.BInterpolate.Size = new System.Drawing.Size(314, 23);
             this.BInterpolate.TabIndex = 19;
@@ -742,11 +755,26 @@
             this.BInterpolate.UseVisualStyleBackColor = false;
             this.BInterpolate.Click += new System.EventHandler(this.BInterpolate_Click);
             // 
+            // TBInterpolationPolynomial
+            // 
+            this.TBInterpolationPolynomial.BackColor = System.Drawing.Color.LightSalmon;
+            this.TBInterpolationPolynomial.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TBInterpolationPolynomial.Location = new System.Drawing.Point(3, 411);
+            this.TBInterpolationPolynomial.MaxLength = 10000000;
+            this.TBInterpolationPolynomial.Multiline = true;
+            this.TBInterpolationPolynomial.Name = "TBInterpolationPolynomial";
+            this.TBInterpolationPolynomial.ReadOnly = true;
+            this.TBInterpolationPolynomial.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.TBInterpolationPolynomial.Size = new System.Drawing.Size(782, 41);
+            this.TBInterpolationPolynomial.TabIndex = 4;
+            this.TBInterpolationPolynomial.Text = "? Interpolation polynomial ?";
+            this.TBInterpolationPolynomial.WordWrap = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1120, 592);
+            this.ClientSize = new System.Drawing.Size(1120, 503);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -769,8 +797,8 @@
             this.GBChebyshev.ResumeLayout(false);
             this.GBChebyshev.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.N_n_Cheb)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.N_x_0_Cheb)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.N_x_n_1_Cheb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.N_a_Cheb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.N_b_Cheb)).EndInit();
             this.tableLayoutPanel7.ResumeLayout(false);
             this.tableLayoutPanel7.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -778,7 +806,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.NMAX)).EndInit();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
-            this.tableLayoutPanel6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -812,8 +839,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown N_n_Cheb;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown N_x_0_Cheb;
-        private System.Windows.Forms.NumericUpDown N_x_n_1_Cheb;
+        private System.Windows.Forms.NumericUpDown N_a_Cheb;
+        private System.Windows.Forms.NumericUpDown N_b_Cheb;
         private System.Windows.Forms.Label label7;
         private OxyPlot.WindowsForms.PlotView plotView1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
@@ -833,6 +860,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn y_i;
         private System.Windows.Forms.DataGridViewButtonColumn Del;
         private System.Windows.Forms.DataGridViewButtonColumn Edit;
+        private System.Windows.Forms.TextBox TBInterpolationPolynomial;
     }
 }
 
