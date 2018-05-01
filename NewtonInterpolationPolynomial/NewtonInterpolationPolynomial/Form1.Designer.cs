@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -80,6 +81,7 @@
             this.CBPolynomial = new System.Windows.Forms.ComboBox();
             this.BInterpolate = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label8 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -115,10 +117,10 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 93.00411F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.995885F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 93.03797F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.962025F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1120, 589);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1120, 632);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -133,7 +135,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1114, 541);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1114, 581);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // tableLayoutPanel3
@@ -143,14 +145,16 @@
             this.tableLayoutPanel3.Controls.Add(this.DGVPoints, 0, 2);
             this.tableLayoutPanel3.Controls.Add(this.groupBox2, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel5, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.label8, 0, 3);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 3;
+            this.tableLayoutPanel3.RowCount = 4;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 95F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 240F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(314, 535);
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 239F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(314, 575);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // DGVPoints
@@ -165,12 +169,12 @@
             this.Del,
             this.Edit});
             this.DGVPoints.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DGVPoints.Location = new System.Drawing.Point(3, 338);
+            this.DGVPoints.Location = new System.Drawing.Point(3, 337);
             this.DGVPoints.Name = "DGVPoints";
             this.DGVPoints.RowHeadersVisible = false;
             this.DGVPoints.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.DGVPoints.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.DGVPoints.Size = new System.Drawing.Size(308, 197);
+            this.DGVPoints.Size = new System.Drawing.Size(308, 189);
             this.DGVPoints.TabIndex = 5;
             this.DGVPoints.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVPoints_CellClick);
             this.DGVPoints.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DGVPoints_CellPainting);
@@ -224,7 +228,6 @@
             this.groupBox2.Controls.Add(this.RBChebyshev);
             this.groupBox2.Controls.Add(this.RBEquidistant);
             this.groupBox2.Controls.Add(this.RBManual);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(308, 89);
@@ -280,10 +283,10 @@
             this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 98);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 3;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 78F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(308, 234);
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40.26846F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 59.73154F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 85F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(308, 233);
             this.tableLayoutPanel5.TabIndex = 7;
             // 
             // GBEquidistant
@@ -297,9 +300,9 @@
             this.GBEquidistant.Controls.Add(this.N_x_0_equi);
             this.GBEquidistant.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GBEquidistant.Enabled = false;
-            this.GBEquidistant.Location = new System.Drawing.Point(3, 81);
+            this.GBEquidistant.Location = new System.Drawing.Point(3, 62);
             this.GBEquidistant.Name = "GBEquidistant";
-            this.GBEquidistant.Size = new System.Drawing.Size(302, 72);
+            this.GBEquidistant.Size = new System.Drawing.Size(302, 82);
             this.GBEquidistant.TabIndex = 1;
             this.GBEquidistant.TabStop = false;
             this.GBEquidistant.Text = "(2) Use equidistant nodes";
@@ -409,7 +412,7 @@
             this.GBManual.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GBManual.Location = new System.Drawing.Point(3, 3);
             this.GBManual.Name = "GBManual";
-            this.GBManual.Size = new System.Drawing.Size(302, 72);
+            this.GBManual.Size = new System.Drawing.Size(302, 53);
             this.GBManual.TabIndex = 1;
             this.GBManual.TabStop = false;
             this.GBManual.Text = "(1) Add nodes manually";
@@ -467,9 +470,9 @@
             this.GBChebyshev.Controls.Add(this.label7);
             this.GBChebyshev.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GBChebyshev.Enabled = false;
-            this.GBChebyshev.Location = new System.Drawing.Point(3, 159);
+            this.GBChebyshev.Location = new System.Drawing.Point(3, 150);
             this.GBChebyshev.Name = "GBChebyshev";
-            this.GBChebyshev.Size = new System.Drawing.Size(302, 72);
+            this.GBChebyshev.Size = new System.Drawing.Size(302, 80);
             this.GBChebyshev.TabIndex = 2;
             this.GBChebyshev.TabStop = false;
             this.GBChebyshev.Text = "(3) Use Chebyshew nodes";
@@ -584,7 +587,7 @@
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(788, 535);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(788, 575);
             this.tableLayoutPanel7.TabIndex = 1;
             // 
             // plotView1
@@ -594,7 +597,7 @@
             this.plotView1.Location = new System.Drawing.Point(3, 3);
             this.plotView1.Name = "plotView1";
             this.plotView1.PanCursor = System.Windows.Forms.Cursors.Hand;
-            this.plotView1.Size = new System.Drawing.Size(782, 426);
+            this.plotView1.Size = new System.Drawing.Size(782, 466);
             this.plotView1.TabIndex = 1;
             this.plotView1.Text = "plotView1";
             this.plotView1.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
@@ -605,7 +608,7 @@
             // 
             this.LAError.AutoSize = true;
             this.LAError.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LAError.Location = new System.Drawing.Point(3, 460);
+            this.LAError.Location = new System.Drawing.Point(3, 500);
             this.LAError.Name = "LAError";
             this.LAError.Size = new System.Drawing.Size(782, 28);
             this.LAError.TabIndex = 2;
@@ -619,7 +622,7 @@
             this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.NMAX);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 435);
+            this.panel1.Location = new System.Drawing.Point(3, 475);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(782, 22);
             this.panel1.TabIndex = 3;
@@ -696,7 +699,7 @@
             this.tableLayoutPanel8.Controls.Add(this.TBInterpolationPolynomial, 0, 0);
             this.tableLayoutPanel8.Controls.Add(this.BClipboard, 1, 0);
             this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 491);
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 531);
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
             this.tableLayoutPanel8.RowCount = 1;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -740,11 +743,11 @@
             this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel6, 1, 0);
             this.tableLayoutPanel4.Controls.Add(this.BInterpolate, 0, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 550);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 590);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(1114, 36);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(1114, 39);
             this.tableLayoutPanel4.TabIndex = 1;
             // 
             // tableLayoutPanel6
@@ -759,14 +762,14 @@
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 1;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(788, 30);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(788, 33);
             this.tableLayoutPanel6.TabIndex = 18;
             // 
             // LPolynomial
             // 
             this.LPolynomial.BackColor = System.Drawing.Color.LimeGreen;
             this.LPolynomial.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.LPolynomial.Location = new System.Drawing.Point(2, 8);
+            this.LPolynomial.Location = new System.Drawing.Point(2, 11);
             this.LPolynomial.Margin = new System.Windows.Forms.Padding(2, 2, 2, 1);
             this.LPolynomial.Name = "LPolynomial";
             this.LPolynomial.Padding = new System.Windows.Forms.Padding(0, 0, 0, 3);
@@ -781,7 +784,7 @@
             this.CBPolynomial.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.CBPolynomial.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBPolynomial.FormattingEnabled = true;
-            this.CBPolynomial.Location = new System.Drawing.Point(43, 8);
+            this.CBPolynomial.Location = new System.Drawing.Point(43, 11);
             this.CBPolynomial.Margin = new System.Windows.Forms.Padding(3, 3, 3, 1);
             this.CBPolynomial.Name = "CBPolynomial";
             this.CBPolynomial.Size = new System.Drawing.Size(742, 21);
@@ -794,7 +797,7 @@
             this.BInterpolate.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.BInterpolate.FlatAppearance.BorderColor = System.Drawing.Color.Turquoise;
             this.BInterpolate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BInterpolate.Location = new System.Drawing.Point(3, 10);
+            this.BInterpolate.Location = new System.Drawing.Point(3, 13);
             this.BInterpolate.Name = "BInterpolate";
             this.BInterpolate.Size = new System.Drawing.Size(314, 23);
             this.BInterpolate.TabIndex = 19;
@@ -802,18 +805,31 @@
             this.BInterpolate.UseVisualStyleBackColor = false;
             this.BInterpolate.Click += new System.EventHandler(this.BInterpolate_Click);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label8.Location = new System.Drawing.Point(3, 529);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(308, 46);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "Click Interpolate after deleting node to calculate the\r\n interpolation";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1120, 589);
+            this.ClientSize = new System.Drawing.Size(1120, 632);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Newton Interpolation Polynomial";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVPoints)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -897,6 +913,7 @@
         private System.Windows.Forms.TextBox TBInterpolationPolynomial;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
         private System.Windows.Forms.Button BClipboard;
+        private System.Windows.Forms.Label label8;
     }
 }
 
