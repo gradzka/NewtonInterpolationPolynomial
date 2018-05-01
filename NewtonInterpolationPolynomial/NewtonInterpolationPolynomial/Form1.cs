@@ -70,6 +70,7 @@ namespace NewtonInterpolationPolynomial
                 double y_i = (double)((KeyValuePair<string, Func<double, double>>)CBPolynomial.SelectedItem).Value.DynamicInvoke(Convert.ToDouble(x_i));
                 this.DGVPoints.Rows.Add(DGVPoints.RowCount, x_i, y_i);
 
+                //Plot
                 plotView1.Model.Series.Remove(scatterSeries);
                 scatterSeries.Points.Add(new ScatterPoint(x_i, y_i, 5, 1));
                 plotView1.Model.Series.Add(scatterSeries);
@@ -77,7 +78,7 @@ namespace NewtonInterpolationPolynomial
 
                 this.N_x_i.Value++;
                 this.DGVPointsDict.Add(DGVPoints.RowCount - 1, new KeyValuePair<double, double>(Convert.ToDouble(x_i), y_i));
-                GenerateDifDiv(0, DGVPoints.RowCount-1);
+                GenerateDifDiv(0, DGVPoints.RowCount - 1);
             }
             else
             {
@@ -150,7 +151,7 @@ namespace NewtonInterpolationPolynomial
                         this.DGVPointsDict[i] = new KeyValuePair<double, double>(DGVPointsDict[j].Key, DGVPointsDict[j].Value);
                     }
                     DGVPointsDict.Remove(j); //Remove last element in dict
-                    for (int i = 0; i < DGVPoints.RowCount-rowIndex+1; i++)
+                    for (int i = 0; i < DGVPoints.RowCount - rowIndex + 1; i++)
                     {
                         difDiv.RemoveAt(difDiv.Count - 1);
                     }
@@ -177,7 +178,7 @@ namespace NewtonInterpolationPolynomial
                         if (Convert.ToDouble(DGVPoints[1, i].Value) == newx_i)
                         {
                             MessageBox.Show("You can't change node to existing argument: " + newx_i, "Error");
-                            e.Cancel = true;                    
+                            e.Cancel = true;
                             can_or_not = false;
                             break;
 
@@ -192,18 +193,18 @@ namespace NewtonInterpolationPolynomial
                         plotView1.Model.Series.Remove(scatterSeries);
                         scatterSeries.Points.RemoveAt(e.RowIndex);
                         scatterSeries.Points.Insert(e.RowIndex, new ScatterPoint(newx_i, y_iNew, 5, 1));
-                        plotView1.Model.Series.Add(scatterSeries);                     
+                        plotView1.Model.Series.Add(scatterSeries);
                         plotView1.Model.InvalidatePlot(true);
 
                         for (int i = 0; i < DGVPoints.RowCount - e.RowIndex; i++)
                         {
                             difDiv.RemoveAt(difDiv.Count - 1);
                         }
-                        if (DGVPoints.RowCount>0)
+                        if (DGVPoints.RowCount > 0)
                         {
                             GenerateDifDiv(0, DGVPoints.RowCount - 1);
                         }
-                        
+
                     }
                     DGVPoints.InvalidateRow(e.RowIndex);
                 }
@@ -242,12 +243,14 @@ namespace NewtonInterpolationPolynomial
             }
             string title = ((KeyValuePair<string, Func<double, double>>)CBPolynomial.SelectedItem).Key;
             plotView1.Model.Series.Add(new OxyPlot.Series.FunctionSeries(((KeyValuePair<string, Func<double, double>>)CBPolynomial.SelectedItem).Value, -100, 100, 0.1, title));
-            plotView1.Model.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = OxyPlot.Axes.AxisPosition.Left, ExtraGridlines = new double[] { 0 }, ExtraGridlineThickness = 1, ExtraGridlineColor = OxyColors.Black, });
-            plotView1.Model.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = OxyPlot.Axes.AxisPosition.Top, ExtraGridlines = new double[] { 0 }, ExtraGridlineThickness = 1, ExtraGridlineColor = OxyColors.Black, });
+            plotView1.Model.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = OxyPlot.Axes.AxisPosition.Left, ExtraGridlines = new double[] { 0 }, ExtraGridlineThickness = 1, ExtraGridlineColor = OxyColors.Black, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
+            plotView1.Model.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = OxyPlot.Axes.AxisPosition.Bottom, ExtraGridlines = new double[] { 0 }, ExtraGridlineThickness = 1, ExtraGridlineColor = OxyColors.Black, MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot });
+            plotView1.Model.Axes[1].AbsoluteMinimum = -100;
+            plotView1.Model.Axes[1].AbsoluteMaximum = 100;
             if (scatterSeries.Points.Count != 0)
             {
                 scatterSeries.Points.Clear();
-                foreach (KeyValuePair<double,double> item in DGVPointsDict.Values)
+                foreach (KeyValuePair<double, double> item in DGVPointsDict.Values)
                 {
                     scatterSeries.Points.Add(new ScatterPoint(item.Key, item.Value, 5, 1));
                 }
@@ -255,53 +258,10 @@ namespace NewtonInterpolationPolynomial
                 plotView1.Model.Series.Add(scatterSeries);
             }
             plotView1.Model.InvalidatePlot(true);
-          
 
             NMIN_MAX_ValueChanged(null, null);
             NMIN.Enabled = true;
             NMAX.Enabled = true;
-        }
-
-        // *** Plot ***
-        private void NMIN_MAX_ValueChanged(object sender, EventArgs e)
-        {
-            int minimum;
-            int maximum;
-
-            int.TryParse(NMIN.Value.ToString(), out minimum);
-            int.TryParse(NMAX.Value.ToString(), out maximum);
-
-            if (minimum >= maximum)
-            {
-                minimum = maximum - 6;
-                NMIN.Value = minimum;
-            }
-            if (minimum != 0 && maximum != 0)
-            {
-                plotView1.Model.Axes[1].Minimum = minimum;
-                plotView1.Model.Axes[1].Maximum = maximum;
-
-                //set y
-                double max = Double.MinValue;
-                double min = Double.MaxValue;
-
-                double functValue = 0.0;
-
-                for (double i = minimum; i <= maximum; i += 0.01)
-                {
-                    functValue = (double)((KeyValuePair<string, Func<double, double>>)CBPolynomial.SelectedItem).Value.DynamicInvoke(i);
-                    max = max > functValue ? max : functValue;
-                    min = min < functValue ? min : functValue;
-                }
-
-                plotView1.Model.Axes[0].Maximum = max;
-                plotView1.Model.Axes[0].Minimum = min;
-
-                plotView1.Model.Axes[0].Reset();
-                plotView1.Model.Axes[1].Reset();
-
-                plotView1.Model.InvalidatePlot(true);
-            }
         }
 
         public double GenerateDifDiv(int down, int up)
@@ -354,15 +314,37 @@ namespace NewtonInterpolationPolynomial
                 for (int i = 0; i < difDiv.Count(); i++)
                 {
                     brackets = difDiv[i];
-                    interpolationPolynomial += "("+brackets+")";
+                    interpolationPolynomial += "(" + brackets + ")";
                     for (int j = 0; j < i; j++)
                     {
                         brackets *= (x - DGVPointsDict[j].Key);
                         interpolationPolynomial += "(x - (" + DGVPointsDict[j].Key + "))";
                     }
-                    if (difDiv.Count() != 1 && i <difDiv.Count()-1)
+                    if (difDiv.Count() != 1 && i < difDiv.Count() - 1)
                     {
                         interpolationPolynomial += " + ";
+                    }
+                    result += brackets;
+                }
+                return result;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+        public double GetInterpolationPolynomialEquation(double x)
+        {
+            if (DGVPointsDict.Count > 0)
+            {
+                double result = 0.0;
+                double brackets = 1;
+                for (int i = 0; i < difDiv.Count(); i++)
+                {
+                    brackets = difDiv[i];
+                    for (int j = 0; j < i; j++)
+                    {
+                        brackets *= (x - DGVPointsDict[j].Key);
                     }
                     result += brackets;
                 }
@@ -377,15 +359,22 @@ namespace NewtonInterpolationPolynomial
         {
             if (DGVPointsDict.Count > 0)
             {
-               for (int i = plotView1.Model.Series.Count-1; i >=1 ; i--)
-               {
+                for (int i = plotView1.Model.Series.Count - 1; i >= 1; i--)
+                {
                     plotView1.Model.Series.RemoveAt(i);
-               }
+                }
                 plotView1.Model.Series.Add(scatterSeries);
                 plotView1.Model.Series.Add(new OxyPlot.Series.FunctionSeries(new Func<double, double>(x => Interpolate(x)), -100, 100, 0.1, "Interpolation polynomial"));
                 // plotView1.Model.Series[plotView1.Model.Series.Count - 1].Title = interpolationPolynomial;
                 TBInterpolationPolynomial.Text = interpolationPolynomial;
-                plotView1.Model.InvalidatePlot(true);     
+                plotView1.Model.InvalidatePlot(true);
+
+                // max absolute error: ? on the interval < x MIN; x MAX> with step: 0.1
+                string MaxAError = "";
+                MaxAError += "Max absolute error: " + MaxAbsoluteError(Convert.ToDouble(NMIN.Value), Convert.ToDouble(NMAX.Value));
+                MaxAError += " on the interval <" + NMIN.Value + "; " + NMAX.Value + "> " + "with step: 0.1";
+                LAError.Text = MaxAError;
+
             }
             else
             {
@@ -419,7 +408,7 @@ namespace NewtonInterpolationPolynomial
             }
             this.DGVPoints.Refresh();
             //Fill list
-            if (n==0)
+            if (n == 0)
             {
                 GenerateDifDiv(0, 0);
             }
@@ -437,7 +426,7 @@ namespace NewtonInterpolationPolynomial
             }
             string title = ((KeyValuePair<string, Func<double, double>>)CBPolynomial.SelectedItem).Key;
             plotView1.Model.Series.Add(new OxyPlot.Series.FunctionSeries(((KeyValuePair<string, Func<double, double>>)CBPolynomial.SelectedItem).Value, -100, 100, 0.1, title));
-           // plotView1.Model.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = OxyPlot.Axes.AxisPosition.Left, ExtraGridlines = new double[] { 0 }, ExtraGridlineThickness = 1, ExtraGridlineColor = OxyColors.Black, });
+            // plotView1.Model.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = OxyPlot.Axes.AxisPosition.Left, ExtraGridlines = new double[] { 0 }, ExtraGridlineThickness = 1, ExtraGridlineColor = OxyColors.Black, });
             //plotView1.Model.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = OxyPlot.Axes.AxisPosition.Top, ExtraGridlines = new double[] { 0 }, ExtraGridlineThickness = 1, ExtraGridlineColor = OxyColors.Black, });
             scatterSeries.Points.Clear();
             foreach (KeyValuePair<double, double> item in DGVPointsDict.Values)
@@ -503,9 +492,9 @@ namespace NewtonInterpolationPolynomial
 
         private void N_a_Cheb_Validating(object sender, CancelEventArgs e)
         {
-            if (Convert.ToDouble(N_a_Cheb.Value)>=Convert.ToDouble(N_b_Cheb.Value))
+            if (Convert.ToDouble(N_a_Cheb.Value) >= Convert.ToDouble(N_b_Cheb.Value))
             {
-                N_a_Cheb.Value = N_b_Cheb.Value-(decimal)0.01;
+                N_a_Cheb.Value = N_b_Cheb.Value - (decimal)0.01;
             }
         }
 
@@ -514,6 +503,89 @@ namespace NewtonInterpolationPolynomial
             if (Convert.ToDouble(N_a_Cheb.Value) >= Convert.ToDouble(N_b_Cheb.Value))
             {
                 N_b_Cheb.Value = N_a_Cheb.Value + (decimal)0.01;
+            }
+        }
+
+        private void BClipboard_Click(object sender, EventArgs e)
+        {
+            if (interpolationPolynomial != "")
+            {
+                Clipboard.Clear();
+                Clipboard.SetText(interpolationPolynomial);
+            }
+        }
+
+        private double MaxAbsoluteError(double xMIN, double xMAX)
+        {
+            double fValue = 0.0;
+            double IPValue = 0.0;
+            double error = 0.0;
+            double errorMax = 0.0;
+
+            for (double i = xMIN; i <= xMAX; i += 0.01)
+            {
+                fValue = (double)((KeyValuePair<string, Func<double, double>>)CBPolynomial.SelectedItem).Value.DynamicInvoke(i);
+                IPValue = GetInterpolationPolynomialEquation(i);
+                error = Math.Abs(fValue - IPValue);
+                if (error > errorMax)
+                {
+                    errorMax = error;
+                }
+            }
+            return errorMax;
+
+        }
+
+        private void NMIN_MAX_ValueChanged(object sender, EventArgs e)
+        {
+            int minimum;
+            int maximum;
+
+            int.TryParse(NMIN.Value.ToString(), out minimum);
+            int.TryParse(NMAX.Value.ToString(), out maximum);
+
+            if (minimum >= maximum)
+            {
+                minimum = maximum - 6;
+                NMIN.Value = minimum;
+            }
+
+            plotView1.Model.Axes[1].Minimum = minimum;
+            plotView1.Model.Axes[1].Maximum = maximum;
+
+            //set y
+            double max = Double.MinValue;
+            double min = Double.MaxValue;
+
+            double functValue = 0.0;
+
+            for (double i = minimum; i <= maximum; i += 0.01)
+            {
+                functValue = (double)((KeyValuePair<string, Func<double, double>>)CBPolynomial.SelectedItem).Value.DynamicInvoke(i);
+                max = max > functValue ? max : functValue;
+                min = min < functValue ? min : functValue;
+            }
+
+            plotView1.Model.Axes[0].Maximum = max;
+            plotView1.Model.Axes[0].Minimum = min;
+
+            plotView1.Model.Axes[0].Reset();
+            plotView1.Model.Axes[1].Reset();
+
+            plotView1.Model.InvalidatePlot(true);
+
+            // max absolute error: ? on the interval < x MIN; x MAX> with step: 0.1
+            if (DGVPointsDict.Count > 0 && plotView1.Model.Series.Count > 2)
+            {
+                string MaxAError = "";
+                MaxAError += "Max absolute error: " + MaxAbsoluteError(Convert.ToDouble(NMIN.Value), Convert.ToDouble(NMAX.Value));
+                MaxAError += " on the interval <" + NMIN.Value + "; " + NMAX.Value + "> " + "with step: 0.1";
+                LAError.Text = MaxAError;
+            }
+            else
+            {
+                string MaxAError = "Max absolute error: ? on the interval <" + NMIN.Value+";"+ NMAX.Value+"> with step: 0.1";
+                LAError.Text = MaxAError;
             }
         }
     }
