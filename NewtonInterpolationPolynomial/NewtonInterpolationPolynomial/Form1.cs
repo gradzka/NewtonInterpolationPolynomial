@@ -26,6 +26,8 @@ namespace NewtonInterpolationPolynomial
             functions.Add("sin(x) [rad]", (x) => Math.Sin(x));
             functions.Add("-x^3 - 3x^2 + 4x + 12", (x) => -x * x * x - 3 * x * x + 4 * x + 12);
             functions.Add("(x+4)(x+2)(x+1)(x-1)(x-3) + 2", (x) => (x + 4) * (x + 2) * (x + 1) * (x - 1) * (x - 3) + 2);
+            functions.Add("1/(1+x^2)", (x) => 1/(1+x*x));
+            functions.Add("|x|", (x) => Math.Abs(x));
             CBPolynomial.DataSource = new BindingSource(functions, null);
             CBPolynomial.DisplayMember = "Key";
             CBPolynomial.ValueMember = "Value";

@@ -64,6 +64,7 @@
             this.N_a_Cheb = new System.Windows.Forms.NumericUpDown();
             this.N_b_Cheb = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.plotView1 = new OxyPlot.WindowsForms.PlotView();
             this.LAError = new System.Windows.Forms.Label();
@@ -81,7 +82,6 @@
             this.CBPolynomial = new System.Windows.Forms.ComboBox();
             this.BInterpolate = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label8 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -571,6 +571,17 @@
             this.label7.TabIndex = 10;
             this.label7.Text = "a =";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label8.Location = new System.Drawing.Point(3, 529);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(308, 46);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "Click Interpolate after deleting node to calculate the\r\n interpolation";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
             // tableLayoutPanel7
             // 
             this.tableLayoutPanel7.ColumnCount = 1;
@@ -804,17 +815,6 @@
             this.BInterpolate.Text = "Interpolate";
             this.BInterpolate.UseVisualStyleBackColor = false;
             this.BInterpolate.Click += new System.EventHandler(this.BInterpolate_Click);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label8.Location = new System.Drawing.Point(3, 529);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(308, 46);
-            this.label8.TabIndex = 8;
-            this.label8.Text = "Click Interpolate after deleting node to calculate the\r\n interpolation";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // Form1
             // 
