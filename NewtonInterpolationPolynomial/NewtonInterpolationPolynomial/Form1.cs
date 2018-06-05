@@ -455,7 +455,7 @@ namespace NewtonInterpolationPolynomial
             double result = 0.0;
             for (int i = 0; i < n; i++)
             {
-                x_i = ((b - a) / 2) * Math.Cos(((double)(2 * i + 1) / (n + 1)) * (Math.PI / 2)) + ((a + b) / 2);
+                x_i = ((b - a) / 2) * Math.Cos(((double)(2 * i + 1) / n) * (Math.PI / 2)) + ((a + b) / 2);
                 result = (double)((KeyValuePair<string, Func<double, double>>)CBPolynomial.SelectedItem).Value.DynamicInvoke(x_i);
                 this.DGVPoints.Rows.Add(i, x_i, result);
                 this.DGVPointsDict.Add(i, new KeyValuePair<double, double>(x_i, result));
