@@ -23,5 +23,4 @@ To run/compile **NewtonInterpolationPolynomial**, open solution file in Visual S
 * https://pixabay.com/
 
 # Credits
-* Monika Grądzka,
-* Robert Kazimierczak
+* Monika Grądzka
